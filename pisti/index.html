@@ -50,7 +50,11 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const lslUrl = urlParams.get('lsl');
+        const viewerId = urlParams.get('viewer'); // SL Viewer ID'sini al
 
+        // Masadaki her katılımcı için farklı tohum (seed) oluştur
+        // Eğer bir server yoksa, her oyuncu kendi destesini görür
+        // Tam senkronizasyon için harici bir Node.js/Supabase sunucusu gerekir
         function createDeck() {
             deck = [];
             for (let s of suites) {
@@ -58,6 +62,8 @@
                     deck.push({ suit: s, value: v, isRed: s === '♥' || s === '♦' });
                 }
             }
+            // Herkesin aynı desteyi görmesi için basit bir tohumlama yapılabilir 
+            // (ancak MOAP'ta her viewer bağımsız bir tarayıcıdır)
             deck.sort(() => Math.random() - 0.5);
         }
 
