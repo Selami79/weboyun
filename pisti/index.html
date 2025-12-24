@@ -51,41 +51,24 @@
         const urlParams = new URLSearchParams(window.location.search);
         const lslUrl = urlParams.get('lsl');
         const viewerId = urlParams.get('viewer'); // SL Viewer ID'sini al
+        const seatedList = urlParams.get('players') || ""; // Oturanların listesi
 
-        // Masadaki her katılımcı için farklı tohum (seed) oluştur
-        // Eğer bir server yoksa, her oyuncu kendi destesini görür
-        // Tam senkronizasyon için harici bir Node.js/Supabase sunucusu gerekir
-        function createDeck() {
-            deck = [];
-            for (let s of suites) {
-                for (let v of values) {
-                    deck.push({ suit: s, value: v, isRed: s === '♥' || s === '♦' });
-                }
-            }
-            // Herkesin aynı desteyi görmesi için basit bir tohumlama yapılabilir 
-            // (ancak MOAP'ta her viewer bağımsız bir tarayıcıdır)
-            deck.sort(() => Math.random() - 0.5);
-        }
-
-        function renderCard(card, isHidden = false) {
-            const div = document.createElement('div');
-            div.className = `card ${card.isRed ? 'red' : ''}`;
-            if (isHidden) {
-                div.style.background = 'url("card_back.png") center/cover';
-                div.innerHTML = '';
-            } else {
-                div.innerHTML = `
-                    <div class="card-value">${card.value}</div>
-                    <div class="card-suit">${card.suit}</div>
-                    <div class="card-suit-small">${card.suit}</div>
-                `;
-            }
-            return div;
-        }
+        let isSeated = seatedList.includes(viewerId); // Oyuncu oturuyor mu?
 
         function initGame() {
+            if (!isSeated) {
+                document.body.innerHTML = `
+                    <div style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background: #000; color: #d4af37; font-family:sans-serif; text-align:center; padding:20px;">
+                        <h1 style="font-size:3rem; margin-bottom:20px;">⚠️ Lütfen Oturun</h1>
+                        <p style="font-size:1.5rem; color:#f8fafc;">Oyunu oynamak için önce masadaki koltuklardan birine oturmalısın.</p>
+                        <div style="margin-top:30px; border:2px solid #d4af37; padding:20px; border-radius:15px; background:rgba(212,175,55,0.1);">
+                            İzleyici Modu Aktif
+                        </div>
+                    </div>
+                `;
+                return;
+            }
             createDeck();
-            // Ortaya 4 kart
             for (let i = 0; i < 4; i++) tablePile.push(deck.pop());
             deal();
             renderTable();
