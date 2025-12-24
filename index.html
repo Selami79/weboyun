@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe MOAP</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div id="status" class="status">Sıra: X oyuncusunda</div>
+        <div class="grid" id="grid">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <button class="reset-btn" id="reset">Yeniden Başlat</button>
+    </div>
+
+    <script>
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let gameActive = true;
+
+        // URL parametrelerinden LSL adresini çek
+        const urlParams = new URLSearchParams(window.location.search);
+        const lslUrl = urlParams.get('lsl');
+
+        const statusDisplay = document.getElementById('status');
+        const grid = document.getElementById('grid');
+        const resetBtn = document.getElementById('reset');
+
+        // Hücreleri oluştur
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.dataset.index = i;
+            cell.onclick = handleCellClick;
+            grid.appendChild(cell);
+        }
+
+        function sendToLSL(data) {
+            if (!lslUrl) {
+                console.warn("LSL URL bulunamadı. Lütfen sayfayı ?lsl=... parametresiyle açın.");
+                return;
+            }
+            fetch(lslUrl, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).catch(err => console.error("LSL İletişim Hatası:", err));
+        }
+
+        function handleCellClick(e) {
+            const clickedIndex = parseInt(e.target.dataset.index);
+            if (board[clickedIndex] !== '' || !gameActive) return;
+
+            board[clickedIndex] = currentPlayer;
+            e.target.innerText = currentPlayer;
+            e.target.classList.add(currentPlayer.toLowerCase());
+
+            checkResult();
+        }
+
+        function checkResult() {
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            let roundWon = false;
+
+            for (let i = 0; i < winConditions.length; i++) {
+                const [a, b, c] = winConditions[i];
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    roundWon = true;
+                    [a, b, c].forEach(idx => grid.children[idx].classList.add('winner'));
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusDisplay.innerText = `Kazanan: ${currentPlayer}!`;
+                gameActive = false;
+                sendToLSL({ "event": "winner", "player": currentPlayer });
+                return;
+            }
+
+            if (!board.includes('')) {
+                statusDisplay.innerText = "Berabere!";
+                gameActive = false;
+                sendToLSL({ "event": "draw" });
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDisplay.innerText = `Sıra: ${currentPlayer} oyuncusunda`;
+        }
+
+        resetBtn.onclick = () => {
+            board = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = 'X';
+            gameActive = true;
+            statusDisplay.innerText = `Sıra: X oyuncusunda`;
+            Array.from(grid.children).forEach(cell => {
+                cell.innerText = '';
+                cell.classList.remove('x', 'o', 'winner');
+            });
+            sendToLSL({ "event": "reset" });
+        };
+    </script>
+
+</body>
+
+</html>
