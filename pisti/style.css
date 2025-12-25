@@ -91,7 +91,7 @@ body {
 #hand-0 {
     position: absolute;
     left: 50%;
-    top: 82%;
+    top: 88%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -132,7 +132,7 @@ body {
 
 #hand-1 {
     position: absolute;
-    right: 8%;
+    right: 12%;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -169,7 +169,7 @@ body {
 #hand-2 {
     position: absolute;
     left: 50%;
-    top: 18%;
+    top: 12%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -210,7 +210,7 @@ body {
 
 #hand-3 {
     position: absolute;
-    left: 8%;
+    left: 12%;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
