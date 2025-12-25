@@ -136,10 +136,10 @@
             if (!indicator) return;
             // Sırası olan oyuncunun konumuna göre elin yerini ve yönünü belirle
             const positions = [
-                { left: '50%', top: '82%', rot: 0 },    // P0 (Alt) - Yukarı işaret
-                { left: '86%', top: '50%', rot: -90 },  // P1 (Sağ) - Sola işaret
-                { left: '50%', top: '18%', rot: 180 },  // P2 (Üst) - Aşağı işaret
-                { left: '14%', top: '50%', rot: 90 }    // P3 (Sol) - Sağa işaret
+                { left: '50%', top: '90%', rot: 90 },   // P0 (Alt) - Aşağıya işaret (Sana)
+                { left: '90%', top: '50%', rot: 0 },    // P1 (Sağ) - Sağa işaret
+                { left: '50%', top: '10%', rot: -90 },  // P2 (Üst) - Yukarıya işaret
+                { left: '10%', top: '50%', rot: 180 }   // P3 (Sol) - Sola işaret
             ];
             const pos = positions[currentPlayerIndex];
             indicator.style.left = pos.left;
