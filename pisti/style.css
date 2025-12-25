@@ -367,7 +367,7 @@ body {
 }
 
 .section-mode {
-    left: 13.8%;
+    left: 14.5%;
     top: 13.8%;
     transform: translateX(-50%);
 }
@@ -388,7 +388,7 @@ body {
 
 .dash-row {
     display: flex;
-    gap: 3vmin;
+    gap: 2vmin;
     align-items: center;
 }
 
