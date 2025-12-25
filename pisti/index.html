@@ -208,10 +208,14 @@
             setTimeout(() => el.style.opacity = '0', 2000);
         }
 
+        const VERSION = Date.now();
+        // Update CSS version dynamically
+        document.querySelector('link[rel="stylesheet"]').href = 'style.css?v=' + VERSION;
+
         function updateScale() {
             const table = document.getElementById('table');
             const scale = Math.min(window.innerWidth / 1000, window.innerHeight / 1000);
-            table.style.transform = `scale(${scale})`;
+            table.style.transform = `translate(-50%, -50%) scale(${scale})`;
         }
 
         window.addEventListener('resize', updateScale);
