@@ -94,7 +94,8 @@
 
         function toggleSettings() {
             const modal = document.getElementById('settings-modal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+            const isVisible = (modal.style.display === 'flex');
+            modal.style.display = isVisible ? 'none' : 'flex';
         }
 
         function setWinningScore(score) {

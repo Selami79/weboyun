@@ -328,14 +328,19 @@ body {
 /* SETTINGS MODAL */
 .settings-trigger-btn {
     position: absolute;
-    left: 20.8%;
-    top: 13.8%;
-    width: 3.5%;
-    height: 3.5%;
+    left: 16.5%;
+    top: 19%;
+    width: 4%;
+    height: 4%;
     transform: translate(-50%, -50%);
     background: transparent;
     border: none;
     cursor: pointer;
+    z-index: 5000;
+}
+
+.settings-trigger-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .settings-modal {
