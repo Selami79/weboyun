@@ -29,6 +29,7 @@ body {
     height: 95vmin;
     background-image: url('masa_texture_100cm_real_scale.svg');
     background-size: 100% 100%;
+    background-repeat: no-repeat;
     position: relative;
     user-select: none;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
@@ -55,10 +56,10 @@ body {
 }
 
 .score-box {
-    width: 6.5%;
-    height: 4.5%;
-    border-radius: 3vmin;
-    font-size: 2.2vmin;
+    width: 6%;
+    height: 4%;
+    border-radius: 2vmin;
+    font-size: 2vmin;
 }
 
 .round-score {
@@ -71,31 +72,31 @@ body {
     color: var(--red-score);
 }
 
-/* COORDINATES (CENTER-POINT ALIGNMENT BASED ON SCREENSHOT) */
+/* COORDINATES (EXACT SVG MATHEMATICAL CENTERS) */
 
 /* Player 0 (ALT / GÜNEY) */
 #name-0-box {
     left: 50%;
-    top: 93.4%;
+    top: 94%;
     transform: translate(-50%, -50%);
 }
 
 #round-0-box {
-    left: 34.5%;
-    top: 93.4%;
+    left: 34%;
+    top: 94%;
     transform: translate(-50%, -50%);
 }
 
 #total-0-box {
-    left: 65.5%;
-    top: 93.4%;
+    left: 66%;
+    top: 94%;
     transform: translate(-50%, -50%);
 }
 
 #hand-0 {
     position: absolute;
     left: 50%;
-    top: 81%;
+    top: 78%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -103,33 +104,33 @@ body {
 
 /* Player 1 (SAĞ / DOĞU) */
 #name-1-box {
-    left: 93.4%;
+    left: 94%;
     top: 50%;
-    width: 4.5%;
+    width: 4%;
     height: 24%;
     writing-mode: vertical-rl;
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
 #round-1-box {
-    left: 93.4%;
-    top: 65.5%;
-    width: 6.5%;
-    height: 4.5%;
+    left: 94%;
+    top: 66%;
+    width: 4%;
+    height: 6%;
     transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 #total-1-box {
-    left: 93.4%;
-    top: 34.5%;
-    width: 6.5%;
-    height: 4.5%;
+    left: 94%;
+    top: 34%;
+    width: 4%;
+    height: 6%;
     transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 #hand-1 {
     position: absolute;
-    right: 14%;
+    right: 15%;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -140,26 +141,26 @@ body {
 /* Player 2 (ÜST / KUZEY) */
 #name-2-box {
     left: 50%;
-    top: 6.6%;
+    top: 6%;
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
 #round-2-box {
-    left: 65.5%;
-    top: 6.6%;
+    left: 66%;
+    top: 6%;
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
 #total-2-box {
-    left: 34.5%;
-    top: 6.6%;
+    left: 34%;
+    top: 6%;
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
 #hand-2 {
     position: absolute;
     left: 50%;
-    top: 19%;
+    top: 22%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -167,33 +168,33 @@ body {
 
 /* Player 3 (SOL / BATI) */
 #name-3-box {
-    left: 6.6%;
+    left: 6%;
     top: 50%;
-    width: 4.5%;
+    width: 4%;
     height: 24%;
     writing-mode: vertical-rl;
     transform: translate(-50%, -50%);
 }
 
 #round-3-box {
-    left: 6.6%;
-    top: 34.5%;
-    width: 6.5%;
-    height: 4.5%;
+    left: 6%;
+    top: 34%;
+    width: 4%;
+    height: 6%;
     transform: translate(-50%, -50%) rotate(90deg);
 }
 
 #total-3-box {
-    left: 6.6%;
-    top: 65.5%;
-    width: 6.5%;
-    height: 4.5%;
+    left: 6%;
+    top: 66%;
+    width: 4%;
+    height: 6%;
     transform: translate(-50%, -50%) rotate(90deg);
 }
 
 #hand-3 {
     position: absolute;
-    left: 14%;
+    left: 15%;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -201,13 +202,26 @@ body {
     gap: -4vmin;
 }
 
-/* Gameplay Elements */
+/* DESTE AREA (Center: x=820, y=905) */
+#deck-visual {
+    position: absolute;
+    left: 82%;
+    top: 90.5%;
+    width: 18%;
+    height: 11%;
+    transform: translate(-50%, -50%);
+    background: url('card_back.png') center/cover;
+    background-size: 100% 100%;
+    border-radius: 1vmin;
+    box-shadow: 0.5vmin 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+}
+
 .center-area {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 22%;
-    height: 22%;
+    width: 20%;
+    height: 20%;
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
@@ -263,20 +277,6 @@ body {
     opacity: 0;
     pointer-events: none;
     z-index: 1000;
-}
-
-/* Deck Visual (DESTE area - Fixed based on screenshot) */
-#deck-visual {
-    position: absolute;
-    left: 83.5%;
-    top: 78%;
-    width: 17.5%;
-    height: 11%;
-    transform: translate(-50%, -50%);
-    background: url('card_back.png') center/cover;
-    background-size: 100% 100%;
-    border-radius: 1vmin;
-    box-shadow: 0.5vmin 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
 }
 
 .join-btn {

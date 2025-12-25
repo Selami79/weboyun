@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pişti Pro - Precision Layout</title>
     <script>
-        const VERSION = Date.now();
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'style.css?v=' + VERSION;
-        document.head.appendChild(link);
+        const v = Date.now();
+        document.write(`<link rel="stylesheet" href="style.css?v=${v}">`);
     </script>
 </head>
 
