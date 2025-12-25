@@ -27,7 +27,7 @@ body {
 #table {
     width: 95vmin;
     height: 95vmin;
-    background-image: url('masa_texture_100cm_real_scale.svg?v=4');
+    background-image: url('masa_texture_100cm_real_scale.svg?v=6');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
@@ -59,10 +59,6 @@ body {
     width: 6.5%;
     height: 4.5%;
     font-size: 2vmin;
-}
-
-.score-val {
-    display: inline-block;
 }
 
 .round-score {
@@ -260,96 +256,6 @@ body {
     color: #e11d48;
 }
 
-.start-btn {
-    position: absolute;
-    left: 13.7%;
-    top: 8.2%;
-    width: 15.6%;
-    height: 4.8%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #FFD700;
-    font-weight: bold;
-    font-size: 2.8vmin;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    z-index: 5000;
-    text-shadow: 0 0 1vmin #000;
-}
-
-.svg-label {
-    position: absolute;
-    color: #D4AF37;
-    font-size: 1.4vmin;
-    font-weight: bold;
-    pointer-events: none;
-    text-shadow: 0 0 0.5vmin #000;
-}
-
-.label-mode {
-    left: 14%;
-    top: 12.8%;
-    transform: translateX(-50%);
-    font-size: 1.25vmin;
-}
-
-.label-single {
-    left: 10.5%;
-    top: 15.2%;
-    color: #fff;
-    font-size: 1.5vmin;
-}
-
-.label-partner {
-    left: 18.2%;
-    top: 15.2%;
-    color: #fff;
-    font-size: 1.5vmin;
-}
-
-.label-lang {
-    left: 88%;
-    top: 6%;
-    transform: translateX(-50%);
-    font-size: 1.25vmin;
-}
-
-.mode-btn {
-    position: absolute;
-    width: 2.4%;
-    height: 2.4%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 5000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.single-btn {
-    left: 7.1%;
-    top: 14.1%;
-}
-
-.partner-btn {
-    left: 15.1%;
-    top: 14.1%;
-}
-
-.lang-check {
-    color: #00FF00;
-    font-size: 2.2vmin;
-    pointer-events: none;
-    font-weight: bold;
-    text-shadow: 0 0 1vmin #000;
-    line-height: 1;
-}
-
 .announcement {
     position: absolute;
     top: 50%;
@@ -403,7 +309,96 @@ body {
     opacity: 0;
 }
 
-/* SETTINGS MODAL */
+/* DASHBOARD */
+#dashboard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#dashboard * {
+    pointer-events: auto;
+}
+
+#start-btn {
+    position: absolute;
+    left: 13.7%;
+    top: 8.2%;
+    width: 15.6%;
+    height: 4.8%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 2.8vmin;
+    text-shadow: 0 0 1vmin #000;
+    z-index: 5000;
+}
+
+.dash-section {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-mode {
+    left: 13.8%;
+    top: 13.5%;
+    transform: translateX(-50%);
+}
+
+.section-lang {
+    right: 11%;
+    top: 8.5%;
+    transform: translateX(50%);
+}
+
+.dash-title {
+    color: var(--accent);
+    font-size: 1.2vmin;
+    font-weight: bold;
+    margin-bottom: 0.5vmin;
+    text-shadow: 0 0 0.5vmin #000;
+}
+
+.dash-row {
+    display: flex;
+    gap: 2.5vmin;
+    align-items: center;
+}
+
+.dash-opt {
+    display: flex;
+    align-items: center;
+    gap: 0.8vmin;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.5vmin;
+    font-weight: bold;
+}
+
+.check-box {
+    width: 2.2vmin;
+    height: 2.2vmin;
+    border: 0.2vmin solid var(--accent);
+    border-radius: 0.3vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-box span {
+    color: #00FF00;
+    font-size: 1.8vmin;
+    text-shadow: 0 0 1vmin #000;
+}
+
 .settings-trigger-btn {
     position: absolute;
     left: 16.5%;
@@ -422,6 +417,7 @@ body {
     border-radius: 50%;
 }
 
+/* MODALS */
 .settings-modal {
     display: none;
     position: absolute;
@@ -500,33 +496,4 @@ body {
 
 .close-settings:hover {
     transform: scale(1.05);
-}
-
-/* LANGUAGE BUTTONS */
-.lang-btn {
-    position: absolute;
-    width: 2.4%;
-    height: 2.4%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 5000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.tr-btn {
-    left: 81.6%;
-    top: 7.6%;
-}
-
-.en-btn {
-    left: 89.6%;
-    top: 7.6%;
-}
-
-.lang-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20%;
 }

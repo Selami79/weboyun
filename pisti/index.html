@@ -56,29 +56,41 @@
             <div id="turn-indicator" class="turn-indicator">👉</div>
         </div>
 
+        <!-- DASHBOARD (HTML-BASED CONTROLS) -->
+        <div id="dashboard">
+            <button id="start-btn" onclick="startGame()">BAŞLAT</button>
+
+            <div class="dash-section section-mode">
+                <span id="lbl-mode" class="dash-title">OYUN MODU</span>
+                <div class="dash-row">
+                    <div class="dash-opt" onclick="setGameMode('single')">
+                        <div class="check-box"><span id="check-single">✔</span></div>
+                        <span id="lbl-single">TEKLİ</span>
+                    </div>
+                    <div class="dash-opt" onclick="setGameMode('partner')">
+                        <div class="check-box"><span id="check-partner" style="display:none;">✔</span></div>
+                        <span id="lbl-partner">EŞLİ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dash-section section-lang">
+                <span id="lbl-lang" class="dash-title">DİL SEÇİMİ</span>
+                <div class="dash-row">
+                    <div class="dash-opt" onclick="setLanguage('TR')">
+                        <div class="check-box"><span id="check-tr">✔</span></div>
+                        <span>TR</span>
+                    </div>
+                    <div class="dash-opt" onclick="setLanguage('EN')">
+                        <div class="check-box"><span id="check-en" style="display:none;">✔</span></div>
+                        <span>EN</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="settings-btn" class="settings-trigger-btn" onclick="toggleSettings()"></button>
+        </div>
         <div id="deck-visual"></div>
-        <button id="start-btn" class="start-btn" onclick="startGame()">BAŞLAT</button>
-        <button id="settings-btn" class="settings-trigger-btn" onclick="toggleSettings()"></button>
-
-        <!-- DASHBOARD OVERLAYS -->
-        <div id="lbl-mode" class="svg-label label-mode">OYUN MODU</div>
-        <div id="lbl-single" class="svg-label label-single">TEKLİ</div>
-        <div id="lbl-partner" class="svg-label label-partner">EŞLİ</div>
-        <div id="lbl-lang" class="svg-label label-lang">DİL SEÇİMİ</div>
-
-        <button id="mode-single-btn" class="mode-btn single-btn" onclick="setGameMode('single')">
-            <span id="check-single" class="lang-check">✔</span>
-        </button>
-        <button id="mode-partner-btn" class="mode-btn partner-btn" onclick="setGameMode('partner')">
-            <span id="check-partner" class="lang-check" style="display:none;">✔</span>
-        </button>
-
-        <button id="lang-tr-btn" class="lang-btn tr-btn" onclick="setLanguage('TR')">
-            <span id="check-tr" class="lang-check">✔</span>
-        </button>
-        <button id="lang-en-btn" class="lang-btn en-btn" onclick="setLanguage('EN')">
-            <span id="check-en" class="lang-check" style="display:none;">✔</span>
-        </button>
 
         <!-- SETTINGS MODAL -->
         <div id="settings-modal" class="settings-modal">
