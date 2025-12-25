@@ -185,8 +185,10 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v9.4\n
+                Pişti Pro v9.5\n
                 ------------------\n
+                - Kesintisiz Oyun Döngüsü (Hedefe Kadar Devam)\n
+                - Otomatik Yeni El Başlatma\n
                 - Gerçekçi Deste Dağılımı (Random Scatter)\n
                 - Görünür El Pozisyonları (Kenarlardan Uzak)\n
                 - Akıllı Kart Oryantasyonu (Fix)\n
@@ -410,8 +412,30 @@
                 gameActive = false;
             } else {
                 showAnnouncement(lang[currentLang].roundOver);
+                setTimeout(startNewRound, 3000);
             }
             renderTable();
+        }
+
+        function startNewRound() {
+            createDeck();
+            players.forEach(p => {
+                p.hand = [];
+                p.roundScore = 0;
+                p.capturedCards = [];
+            });
+            tablePile = [];
+
+            // Re-deal initial table cards
+            for (let i = 0; i < 3; i++) tablePile.push({ ...deck.pop(), initiallyHidden: true });
+            tablePile.push(deck.pop());
+
+            currentPlayerIndex = 0; // Or rotate starter? Let's keep P1 starts for now or random
+            lastCapturerIdx = -1;
+            gameActive = true;
+            deal();
+            renderTable();
+            startTurn();
         }
 
         function startTurn() {
