@@ -19,7 +19,7 @@
         <div id="hand-0" class="hand"></div>
         <div id="round-0-box" class="score-box round-score"><span class="score-val">0</span></div>
         <div id="name-0-box" class="name-box">
-            <span id="name-0">Masa 1</span>
+            <span id="name-0"></span>
             <button class="join-btn" id="btn-0" onclick="joinSeat(0)">OTUR</button>
         </div>
         <div id="total-0-box" class="score-box total-score"><span class="score-val">0</span></div>
@@ -28,7 +28,7 @@
         <div id="hand-1" class="hand"></div>
         <div id="round-1-box" class="score-box round-score"><span class="score-val">0</span></div>
         <div id="name-1-box" class="name-box">
-            <span id="name-1">Masa 2</span>
+            <span id="name-1"></span>
             <button class="join-btn" id="btn-1" onclick="joinSeat(1)">OTUR</button>
         </div>
         <div id="total-1-box" class="score-box total-score"><span class="score-val">0</span></div>
@@ -37,7 +37,7 @@
         <div id="hand-2" class="hand"></div>
         <div id="round-2-box" class="score-box round-score"><span class="score-val">0</span></div>
         <div id="name-2-box" class="name-box">
-            <span id="name-2">Masa 3</span>
+            <span id="name-2"></span>
             <button class="join-btn" id="btn-2" onclick="joinSeat(2)">OTUR</button>
         </div>
         <div id="total-2-box" class="score-box total-score"><span class="score-val">0</span></div>
@@ -46,7 +46,7 @@
         <div id="hand-3" class="hand"></div>
         <div id="round-3-box" class="score-box round-score"><span class="score-val">0</span></div>
         <div id="name-3-box" class="name-box">
-            <span id="name-3">Masa 4</span>
+            <span id="name-3"></span>
             <button class="join-btn" id="btn-3" onclick="joinSeat(3)">OTUR</button>
         </div>
         <div id="total-3-box" class="score-box total-score"><span class="score-val">0</span></div>
@@ -84,7 +84,9 @@
         function updateLobbyUI() {
             players.forEach((p, i) => {
                 const nameEl = document.getElementById(`name-${i}`);
-                if (nameEl) nameEl.innerText = p.name;
+                if (nameEl) {
+                    nameEl.innerText = p.type === "human" ? p.name : "";
+                }
                 const btnEl = document.getElementById(`btn-${i}`);
                 if (btnEl) btnEl.style.display = p.type === "human" ? "none" : "inline-block";
             });
