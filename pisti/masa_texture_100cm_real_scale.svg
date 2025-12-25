@@ -111,77 +111,44 @@
      transform="matrix(1.10186,-0.00109361,0.00132774,0.90755496,0,0)"
      id="text6"
      style="stroke-width:1.50093">DESTE</text>
-  <!-- 1. KONTROL PANELİ -->
-  <g
-     transform="translate(60, 60)"
-     id="g14">
-    <rect
-       x="0"
-       y="0"
-       width="160"
-       height="50"
-       rx="10"
-       fill="#8B0000"
-       stroke="#FFD700"
-       stroke-width="3"
-       id="rect7" />
-    <text
-       x="80"
-       y="35"
-       font-family="Arial"
-       font-weight="bold"
-       font-size="28"
-       fill="#FFD700"
-       text-anchor="middle"
-       id="text7">BAŞLAT</text>
+    <!-- 1. KONTROL PANELİ -->
     <g
-       transform="translate(0, 70)"
-       id="g10">
-      <text
-         x="80"
+       transform="translate(60, 60)"
+       id="g14">
+      <rect
+         x="0"
          y="0"
-         font-family="Arial"
-         font-size="14"
-         fill="#D4AF37"
-         text-anchor="middle"
-         id="text8">OYUN MODU</text>
-      <rect
-         x="10"
-         y="10"
-         width="20"
-         height="20"
-         rx="3"
-         fill="none"
-         stroke="#D4AF37"
-         stroke-width="2"
-         id="rect8" />
-      <text
-         x="40"
-         y="25"
-         font-family="Arial"
-         font-size="16"
-         fill="#FFF"
-         dominant-baseline="middle"
-         id="text9">TEKLİ</text>
-      <rect
-         x="90"
-         y="10"
-         width="20"
-         height="20"
-         rx="3"
-         fill="none"
-         stroke="#D4AF37"
-         stroke-width="2"
-         id="rect9" />
-      <text
-         x="120"
-         y="25"
-         font-family="Arial"
-         font-size="16"
-         fill="#FFF"
-         dominant-baseline="middle"
-         id="text10">EŞLİ</text>
-    </g>
+         width="160"
+         height="50"
+         rx="10"
+         fill="#8B0000"
+         stroke="#FFD700"
+         stroke-width="3"
+         id="rect7" />
+      <g
+         transform="translate(0, 70)"
+         id="g10">
+        <rect
+           x="10"
+           y="10"
+           width="20"
+           height="20"
+           rx="3"
+           fill="none"
+           stroke="#D4AF37"
+           stroke-width="2"
+           id="rect8" />
+        <rect
+           x="90"
+           y="10"
+           width="20"
+           height="20"
+           rx="3"
+           fill="none"
+           stroke="#D4AF37"
+           stroke-width="2"
+           id="rect9" />
+      </g>
     <g
        transform="translate(35, 110)"
        id="g11">
@@ -229,14 +196,6 @@
   <g
      transform="translate(800, 60)"
      id="g16">
-    <text
-       x="80"
-       y="0"
-       font-family="Arial"
-       font-size="14"
-       fill="#D4AF37"
-       text-anchor="middle"
-       id="text14">DİL SEÇİMİ</text>
     <rect
        x="10"
        y="10"

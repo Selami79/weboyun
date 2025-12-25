@@ -267,13 +267,12 @@ body {
     width: 15.6%;
     height: 4.8%;
     transform: translate(-50%, -50%);
-    background: #8B0000;
-    border: 0.3vmin solid #FFD700;
+    background: transparent;
+    border: none;
     cursor: pointer;
     color: #FFD700;
     font-weight: bold;
-    font-size: 2.1vmin;
-    border-radius: 1vmin;
+    font-size: 2.8vmin;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -282,9 +281,69 @@ body {
     text-shadow: 0 0 1vmin #000;
 }
 
+.svg-label {
+    position: absolute;
+    color: #D4AF37;
+    font-size: 1.4vmin;
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 0 0 0.5vmin #000;
+}
+
+.label-mode {
+    left: 14%;
+    top: 12.8%;
+    transform: translateX(-50%);
+    font-size: 1.25vmin;
+}
+
+.label-single {
+    left: 10.5%;
+    top: 15.2%;
+    color: #fff;
+    font-size: 1.5vmin;
+}
+
+.label-partner {
+    left: 18.2%;
+    top: 15.2%;
+    color: #fff;
+    font-size: 1.5vmin;
+}
+
+.label-lang {
+    left: 88%;
+    top: 6%;
+    transform: translateX(-50%);
+    font-size: 1.25vmin;
+}
+
+.mode-btn {
+    position: absolute;
+    width: 2.4%;
+    height: 2.4%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.single-btn {
+    left: 7.1%;
+    top: 14.1%;
+}
+
+.partner-btn {
+    left: 15.1%;
+    top: 14.1%;
+}
+
 .lang-check {
     color: #00FF00;
-    font-size: 2vmin;
+    font-size: 2.2vmin;
     pointer-events: none;
     font-weight: bold;
     text-shadow: 0 0 1vmin #000;

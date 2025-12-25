@@ -60,6 +60,19 @@
         <button id="start-btn" class="start-btn" onclick="startGame()">BAŞLAT</button>
         <button id="settings-btn" class="settings-trigger-btn" onclick="toggleSettings()"></button>
 
+        <!-- DASHBOARD OVERLAYS -->
+        <div id="lbl-mode" class="svg-label label-mode">OYUN MODU</div>
+        <div id="lbl-single" class="svg-label label-single">TEKLİ</div>
+        <div id="lbl-partner" class="svg-label label-partner">EŞLİ</div>
+        <div id="lbl-lang" class="svg-label label-lang">DİL SEÇİMİ</div>
+
+        <button id="mode-single-btn" class="mode-btn single-btn" onclick="setGameMode('single')">
+            <span id="check-single" class="lang-check">✔</span>
+        </button>
+        <button id="mode-partner-btn" class="mode-btn partner-btn" onclick="setGameMode('partner')">
+            <span id="check-partner" class="lang-check" style="display:none;">✔</span>
+        </button>
+
         <button id="lang-tr-btn" class="lang-btn tr-btn" onclick="setLanguage('TR')">
             <span id="check-tr" class="lang-check">✔</span>
         </button>
@@ -88,12 +101,14 @@
             TR: {
                 start: "BAŞLAT", join: "OTUR", pisti: "PİŞTİ!", gameover: "OYUN BİTTİ!",
                 roundOver: "EL BİTTİ!", won: "KAZANDI!", target: "Hedef", settings: "OYUN AYARLARI",
-                selectTarget: "Hedef Puan Seçin:", ok: "TAMAM", me: "SEN"
+                selectTarget: "Hedef Puan Seçin:", ok: "TAMAM", me: "SEN",
+                mode: "OYUN MODU", single: "TEKLİ", partner: "EŞLİ", language: "DİL SEÇİMİ"
             },
             EN: {
                 start: "START", join: "JOIN", pisti: "PISTI!", gameover: "GAME OVER!",
                 roundOver: "ROUND OVER!", won: "WON!", target: "Target", settings: "SETTINGS",
-                selectTarget: "Select Target Score:", ok: "OK", me: "YOU"
+                selectTarget: "Select Target Score:", ok: "OK", me: "YOU",
+                mode: "GAME MODE", single: "SINGLE", partner: "PARTNERS", language: "LANGUAGE"
             }
         };
         let currentLang = 'TR';
@@ -121,6 +136,12 @@
             document.getElementById('set-desc').innerText = lang[currentLang].selectTarget;
             document.getElementById('set-close').innerText = lang[currentLang].ok;
 
+            // Labels
+            document.getElementById('lbl-mode').innerText = lang[currentLang].mode;
+            document.getElementById('lbl-single').innerText = lang[currentLang].single;
+            document.getElementById('lbl-partner').innerText = lang[currentLang].partner;
+            document.getElementById('lbl-lang').innerText = lang[currentLang].language;
+
             document.getElementById('check-tr').style.display = (l === 'TR' ? 'block' : 'none');
             document.getElementById('check-en').style.display = (l === 'EN' ? 'block' : 'none');
 
@@ -129,6 +150,14 @@
             });
             updateLobbyUI();
             showAnnouncement(lang[currentLang].target + ": " + winningScore);
+        }
+
+        let currentGameMode = 'single';
+        function setGameMode(m) {
+            currentGameMode = m;
+            document.getElementById('check-single').style.display = (m === 'single' ? 'block' : 'none');
+            document.getElementById('check-partner').style.display = (m === 'partner' ? 'block' : 'none');
+            showAnnouncement(m === 'single' ? lang[currentLang].single : lang[currentLang].partner);
         }
 
         function toggleSettings() {
