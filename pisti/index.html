@@ -4,64 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4 Kişilik Premium Pişti</title>
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <title>Premium Pişti - Pro Table</title>
+    <link rel="stylesheet" href="style.css?v=2.2">
 </head>
 
 <body>
     <div id="table">
-        <div class="hud">
-            <h3>Skorlar</h3>
-            <div id="scores-container"></div>
-            <hr style="margin: 10px 0; border: 0; border-top: 1px solid var(--glass-border);">
-            <div class="score-line"><span>Kalan Kart:</span> <span id="deck-count">52</span></div>
-        </div>
-
         <div id="announcement" class="announcement">PİŞTİ!</div>
 
-        <!-- Oyuncu Alanları -->
-        <div class="player-area" id="p2">
-            <div class="player-info" id="info-2">Masa 3 (Boş)</div>
-            <div class="hand" id="hand-2"></div>
-            <button class="join-btn" onclick="joinSeat(2)">OTUR</button>
-        </div>
-
-        <div class="player-area" id="p3">
-            <div class="player-info" id="info-3">Masa 4 (Boş)</div>
-            <div class="hand" id="hand-3"></div>
-            <button class="join-btn" onclick="joinSeat(3)">OTUR</button>
-        </div>
-
-        <div class="center-area">
-            <div class="deck-visual">GELECEK KARTLAR</div>
-            <div class="pile" id="central-pile"></div>
+        <!-- Oyuncu Alanları (Güney, Doğu, Kuzey, Batı) -->
+        <div class="player-area" id="p0">
+            <div class="hand" id="hand-0"></div>
+            <div class="player-hud">
+                <div class="score-box round-score" id="round-0">0</div>
+                <div class="player-name-box">
+                    <span id="name-0">Masa 1</span>
+                    <button class="join-btn" id="btn-0" onclick="joinSeat(0)">OTUR</button>
+                </div>
+                <div class="score-box total-score" id="total-0">0</div>
+            </div>
         </div>
 
         <div class="player-area" id="p1">
-            <div class="player-info" id="info-1">Masa 2 (Boş)</div>
             <div class="hand" id="hand-1"></div>
-            <button class="join-btn" onclick="joinSeat(1)">OTUR</button>
+            <div class="player-hud">
+                <div class="score-box round-score" id="round-1">0</div>
+                <div class="player-name-box">
+                    <span id="name-1">Masa 2</span>
+                    <button class="join-btn" id="btn-1" onclick="joinSeat(1)">OTUR</button>
+                </div>
+                <div class="score-box total-score" id="total-1">0</div>
+            </div>
         </div>
 
-        <div class="player-area" id="p0">
-            <div class="player-info" id="info-0">Masa 1 (Boş)</div>
-            <div class="hand" id="hand-0"></div>
-            <button class="join-btn" onclick="joinSeat(0)">OTUR</button>
+        <div class="player-area" id="p2">
+            <div class="hand" id="hand-2"></div>
+            <div class="player-hud">
+                <div class="score-box round-score" id="round-2">0</div>
+                <div class="player-name-box">
+                    <span id="name-2">Masa 3</span>
+                    <button class="join-btn" id="btn-2" onclick="joinSeat(2)">OTUR</button>
+                </div>
+                <div class="score-box total-score" id="total-2">0</div>
+            </div>
         </div>
 
-        <button id="start-btn" class="start-btn" onclick="startGame()">OYUNU BAŞLAT</button>
+        <div class="player-area" id="p3">
+            <div class="hand" id="hand-3"></div>
+            <div class="player-hud">
+                <div class="score-box round-score" id="round-3">0</div>
+                <div class="player-name-box">
+                    <span id="name-3">Masa 4</span>
+                    <button class="join-btn" id="btn-3" onclick="joinSeat(3)">OTUR</button>
+                </div>
+                <div class="score-box total-score" id="total-3">0</div>
+            </div>
+        </div>
+
+        <div class="center-area">
+            <div class="pile" id="central-pile"></div>
+        </div>
+
+        <!-- Başlat Butonu (SVG üzerindeki kırmızı panelin tam üstü) -->
+        <button id="start-btn" class="start-btn" onclick="startGame()"></button>
     </div>
 
     <script>
-        console.log("Pişti v2.0 Loading...");
         const suites = ['♠', '♣', '♥', '♦'];
         const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         let deck = [];
         let players = [
-            { id: 0, name: "Oyuncu 1", type: "bot", hand: [], score: 0 },
-            { id: 1, name: "Oyuncu 2", type: "bot", hand: [], score: 0 },
-            { id: 2, name: "Oyuncu 3", type: "bot", hand: [], score: 0 },
-            { id: 3, name: "Oyuncu 4", type: "bot", hand: [], score: 0 }
+            { id: 0, name: "OYUNCU 1", type: "bot", hand: [], roundScore: 0, totalScore: 0 },
+            { id: 1, name: "OYUNCU 2", type: "bot", hand: [], roundScore: 0, totalScore: 0 },
+            { id: 2, name: "OYUNCU 3", type: "bot", hand: [], roundScore: 0, totalScore: 0 },
+            { id: 3, name: "OYUNCU 4", type: "bot", hand: [], roundScore: 0, totalScore: 0 }
         ];
         let tablePile = [];
         let currentPlayerIndex = 0;
@@ -76,15 +92,8 @@
 
         function updateLobbyUI() {
             players.forEach((p, i) => {
-                const info = document.getElementById(`info-${i}`);
-                const btn = document.querySelector(`#p${i} .join-btn`);
-                if (p.type === "human") {
-                    info.innerText = p.name;
-                    btn.style.display = "none";
-                } else {
-                    info.innerText = `Masa ${i + 1} (Bot)`;
-                    btn.style.display = "block";
-                }
+                document.getElementById(`name-${i}`).innerText = p.name;
+                document.getElementById(`btn-${i}`).style.display = p.type === "human" ? "none" : "block";
             });
         }
 
@@ -101,8 +110,10 @@
         function startGame() {
             if (gameActive) return;
             gameActive = true;
-            document.getElementById('start-btn').style.display = "none";
-            document.querySelectorAll('.join-btn').forEach(b => b.style.display = "none");
+            document.getElementById('start-btn').style.pointerEvents = "none";
+
+            // Yeni raund puanlarını sıfırla
+            players.forEach(p => p.roundScore = 0);
 
             createDeck();
             tablePile = [];
@@ -114,10 +125,10 @@
         }
 
         function deal() {
-            if (deck.length < 16) return;
+            if (deck.length === 0) return;
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < 4; j++) {
-                    players[j].hand.push(deck.pop());
+                    if (deck.length > 0) players[j].hand.push(deck.pop());
                 }
             }
         }
@@ -126,7 +137,7 @@
             const div = document.createElement('div');
             div.className = `card ${card.isRed ? 'red' : ''}`;
             if (isHidden) {
-                div.style.background = 'linear-gradient(135deg, #2d1a0b 0%, #000 100%)';
+                div.style.background = 'linear-gradient(135deg, #0d2b1d 0%, #000 100%)';
                 div.style.border = "1px solid var(--accent)";
                 div.innerHTML = '<div style="color:var(--accent); font-size:10px; text-align:center; margin-top:50%;">PISTI</div>';
             } else {
@@ -151,35 +162,20 @@
                     handEl.appendChild(cardEl);
                 });
 
-                const area = document.getElementById(`p${i}`);
-                if (currentPlayerIndex === i) area.classList.add('active');
-                else area.classList.remove('active');
+                document.getElementById(`p${i}`).className = `player-area ${currentPlayerIndex === i ? 'active' : ''}`;
+                document.getElementById(`round-${i}`).innerText = p.roundScore;
+                document.getElementById(`total-${i}`).innerText = p.totalScore;
             });
 
             const pileEl = document.getElementById('central-pile');
             pileEl.innerHTML = '';
             tablePile.forEach((c, i) => {
-                const isBottom = i === tablePile.length - 1;
-                const cardEl = renderCard(c, !isBottom);
+                const isTop = i === tablePile.length - 1;
+                const cardEl = renderCard(c, !isTop);
                 cardEl.style.position = 'absolute';
-                cardEl.style.top = `${i * 1}px`;
-                cardEl.style.left = `${i * 1}px`;
+                cardEl.style.transform = `rotate(${i * 2}deg)`;
                 pileEl.appendChild(cardEl);
             });
-
-            updateHUD();
-        }
-
-        function updateHUD() {
-            const container = document.getElementById('scores-container');
-            container.innerHTML = '';
-            players.forEach(p => {
-                const div = document.createElement('div');
-                div.className = 'score-line';
-                div.innerHTML = `<span>${p.name}:</span> <span>${p.score}</span>`;
-                container.appendChild(div);
-            });
-            document.getElementById('deck-count').innerText = deck.length;
         }
 
         function playCard(playerIdx, cardIdx) {
@@ -189,12 +185,13 @@
             const topCard = tablePile[tablePile.length - 1];
 
             if (topCard && (card.value === topCard.value || card.value === 'J')) {
-                // Yakalama
+                let points = tablePile.length + 1;
                 if (tablePile.length === 1 && card.value === topCard.value) {
                     showAnnouncement("PİŞTİ!");
-                    players[playerIdx].score += (card.value === 'J' ? 20 : 10);
+                    points = (card.value === 'J' ? 20 : 10);
                 }
-                players[playerIdx].score += (tablePile.length + 1);
+                players[playerIdx].roundScore += points;
+                players[playerIdx].totalScore += points;
                 tablePile = [];
             } else {
                 tablePile.push(card);
@@ -204,7 +201,10 @@
 
             if (players.every(p => p.hand.length === 0)) {
                 if (deck.length > 0) deal();
-                else gameActive = false;
+                else {
+                    gameActive = false;
+                    document.getElementById('start-btn').style.pointerEvents = "auto";
+                }
             }
 
             renderTable();
@@ -215,7 +215,6 @@
             const p = players[currentPlayerIndex];
             if (p.type === "bot") {
                 setTimeout(() => {
-                    // Basit Bot: Eline bak, masadaki kartla aynı varsa at, yoksa rastgele at
                     let bestIdx = 0;
                     const top = tablePile[tablePile.length - 1];
                     if (top) {
@@ -223,7 +222,7 @@
                         if (matchIdx !== -1) bestIdx = matchIdx;
                     }
                     playCard(currentPlayerIndex, bestIdx);
-                }, 1000);
+                }, 800);
             }
         }
 
