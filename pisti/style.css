@@ -48,7 +48,8 @@ body {
 .name-box {
     width: 240px;
     height: 40px;
-    border: 2px solid var(--accent);
+    border: 2px solid #0f0;
+    /* DEBUG BORDER */
     color: var(--accent);
     font-size: 16px;
     border-radius: 4px;
@@ -57,6 +58,8 @@ body {
 .score-box {
     width: 60px;
     height: 40px;
+    border: 2px solid #f0f;
+    /* DEBUG BORDER */
     border-radius: 20px;
     font-size: 20px;
 }
@@ -293,14 +296,16 @@ body {
 #deck-visual {
     position: absolute;
     left: 755px;
-    top: 890px;
+    top: 835px;
+    /* Manually adjusted based on screenshot */
     width: 165px;
     height: 95px;
     background: url('card_back.png') center/cover;
     background-size: 100% 100%;
-    transform: rotate(90deg);
-    /* Deste yatay durmalı */
+    transform: rotate(0deg);
+    /* Trying fallback without rotation first */
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid #f00;
+    /* RED DEBUG BORDER */
 }
