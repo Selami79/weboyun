@@ -179,9 +179,11 @@
 
                     const cardEl = renderCard(c, isHidden);
                     cardEl.style.position = 'absolute';
-                    cardEl.style.transform = `rotate(${i * 5}deg)`;
+                    // Offset each card slightly to fan them out
+                    const xOffset = (i - (visiblePile.length - 1) / 2) * 2.5;
+                    const yOffset = (i - (visiblePile.length - 1) / 2) * 1.5;
                     cardEl.style.left = "50%"; cardEl.style.top = "50%";
-                    cardEl.style.transform += " translate(-50%, -50%)";
+                    cardEl.style.transform = `translate(calc(-50% + ${xOffset}vmin), calc(-50% + ${yOffset}vmin)) rotate(${i * 6 - 9}deg)`;
                     pileEl.appendChild(cardEl);
                 });
             }
