@@ -91,7 +91,7 @@ body {
 #hand-0 {
     position: absolute;
     left: 50%;
-    top: 88%;
+    top: 82%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -169,7 +169,7 @@ body {
 #hand-2 {
     position: absolute;
     left: 50%;
-    top: 12%;
+    top: 18%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -281,14 +281,7 @@ body {
     transform: rotate(90deg) translateX(-1.5vmin) scale(1.1);
 }
 
-/* Pile Realism */
-#central-pile .card:nth-child(even) {
-    transform: translate(-50%, -50%) rotate(2deg);
-}
-
-#central-pile .card:nth-child(odd) {
-    transform: translate(-50%, -50%) rotate(-1deg);
-}
+/* Pile Realism - Managed by JS */
 
 .announcement {
     position: absolute;

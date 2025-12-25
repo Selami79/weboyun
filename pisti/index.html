@@ -185,8 +185,10 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v9.3\n
+                Pişti Pro v9.4\n
                 ------------------\n
+                - Gerçekçi Deste Dağılımı (Random Scatter)\n
+                - Görünür El Pozisyonları (Kenarlardan Uzak)\n
                 - Akıllı Kart Oryantasyonu (Fix)\n
                 - Merkez Pile Ortalama\n
                 - Saha Temizliği & Kart Pozisyonları\n
@@ -319,15 +321,24 @@
 
             const pileEl = document.getElementById('central-pile');
             pileEl.innerHTML = "";
-            const visibleCount = 4;
+            const visibleCount = 8;
             const startIdx = Math.max(0, tablePile.length - visibleCount);
             for (let i = startIdx; i < tablePile.length; i++) {
                 const card = tablePile[i];
                 const cardEl = renderCard(card, card.initiallyHidden);
                 cardEl.style.position = "absolute";
-                let offset = (i - startIdx) * 0.5;
-                let rot = (i - startIdx) * 5 - 10;
-                cardEl.style.transform = `translate(calc(-50% + ${offset}vmin), calc(-50% + ${offset}vmin)) rotate(${rot}deg)`;
+
+                // Random scatter effect
+                /* Use deterministic randomness based on index to avoid jitter on re-render */
+                const pseudoRandom = Math.sin(i * 999);
+                let rot = (pseudoRandom * 20); // -20 to 20 deg
+                let offX = (Math.cos(i * 777) * 0.8); // -0.8 to 0.8 vmin
+                let offY = (Math.sin(i * 333) * 0.8);
+
+                // If it's the very top card, keep it relatively straight for readability
+                if (i === tablePile.length - 1) rot = (pseudoRandom * 5);
+
+                cardEl.style.transform = `translate(calc(-50% + ${offX}vmin), calc(-50% + ${offY}vmin)) rotate(${rot}deg)`;
                 cardEl.style.zIndex = i;
                 pileEl.appendChild(cardEl);
             }
