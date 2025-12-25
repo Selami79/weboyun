@@ -58,7 +58,7 @@ body {
 .score-box {
     width: 6%;
     height: 4%;
-    border-radius: 2vmin;
+    border-radius: 3vmin;
     font-size: 2vmin;
 }
 
@@ -72,7 +72,7 @@ body {
     color: var(--red-score);
 }
 
-/* COORDINATES (EXACT SVG MATHEMATICAL CENTERS) */
+/* COORDINATES (CENTER-POINT ALIGNMENT BY REVERTED SVG) */
 
 /* Player 0 (ALT / GÜNEY) */
 #name-0-box {
@@ -96,7 +96,7 @@ body {
 #hand-0 {
     position: absolute;
     left: 50%;
-    top: 78%;
+    top: 80%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -115,16 +115,12 @@ body {
 #round-1-box {
     left: 94%;
     top: 66%;
-    width: 4%;
-    height: 6%;
     transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 #total-1-box {
     left: 94%;
     top: 34%;
-    width: 4%;
-    height: 6%;
     transform: translate(-50%, -50%) rotate(-90deg);
 }
 
@@ -160,7 +156,7 @@ body {
 #hand-2 {
     position: absolute;
     left: 50%;
-    top: 22%;
+    top: 20%;
     transform: translateX(-50%);
     display: flex;
     gap: -2vmin;
@@ -179,16 +175,12 @@ body {
 #round-3-box {
     left: 6%;
     top: 34%;
-    width: 4%;
-    height: 6%;
     transform: translate(-50%, -50%) rotate(90deg);
 }
 
 #total-3-box {
     left: 6%;
     top: 66%;
-    width: 4%;
-    height: 6%;
     transform: translate(-50%, -50%) rotate(90deg);
 }
 
@@ -202,20 +194,7 @@ body {
     gap: -4vmin;
 }
 
-/* DESTE AREA (Center: x=820, y=905) */
-#deck-visual {
-    position: absolute;
-    left: 82%;
-    top: 90.5%;
-    width: 18%;
-    height: 11%;
-    transform: translate(-50%, -50%);
-    background: url('card_back.png') center/cover;
-    background-size: 100% 100%;
-    border-radius: 1vmin;
-    box-shadow: 0.5vmin 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
-}
-
+/* Gameplay Elements */
 .center-area {
     position: absolute;
     left: 50%;
@@ -277,6 +256,20 @@ body {
     opacity: 0;
     pointer-events: none;
     z-index: 1000;
+}
+
+/* Deck Visual (DESTE area - Center by SVG text: x=761, y=937) */
+#deck-visual {
+    position: absolute;
+    left: 76%;
+    top: 93.7%;
+    width: 16.5%;
+    height: 9.5%;
+    transform: translate(-50%, -50%);
+    background: url('card_back.png') center/cover;
+    background-size: 100% 100%;
+    border-radius: 1vmin;
+    box-shadow: 0.5vmin 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
 }
 
 .join-btn {
