@@ -98,23 +98,27 @@ body {
 
 /* Player 1 (SAĞ / DOĞU / OYUNCU 2) */
 #name-1-box {
-    left: 920px;
+    left: 918px;
     top: 380px;
-    width: 40px;
+    width: 44px;
     height: 240px;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
 }
 
 #round-1-box {
-    left: 920px;
-    top: 630px;
+    left: 910px;
+    top: 620px;
 }
 
+/* Sarı puan kutusu */
+
 #total-1-box {
-    left: 920px;
-    top: 310px;
+    left: 910px;
+    top: 298px;
 }
+
+/* Kırmızı puan kutusu (Sağda üste denk geliyor) */
 
 #hand-1 {
     position: absolute;
@@ -153,22 +157,26 @@ body {
 
 /* Player 3 (SOL / BATI / OYUNCU 4) */
 #name-3-box {
-    left: 40px;
+    left: 38px;
     top: 380px;
-    width: 40px;
+    width: 44px;
     height: 240px;
     writing-mode: vertical-rl;
 }
 
 #round-3-box {
-    left: 40px;
-    top: 310px;
+    left: 30px;
+    top: 298px;
 }
 
+/* Sarı puan kutusu (Solda üste denk geliyor) */
+
 #total-3-box {
-    left: 40px;
-    top: 630px;
+    left: 30px;
+    top: 620px;
 }
+
+/* Kırmızı puan kutusu */
 
 #hand-3 {
     position: absolute;
