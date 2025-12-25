@@ -27,7 +27,7 @@ body {
 #table {
     width: 95vmin;
     height: 95vmin;
-    background-image: url('masa_texture_100cm_real_scale.svg');
+    background-image: url('masa_texture_100cm_real_scale.svg?v=2');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
