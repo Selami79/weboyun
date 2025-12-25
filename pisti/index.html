@@ -134,12 +134,11 @@
         function updateTurnIndicator() {
             const indicator = document.getElementById('turn-indicator');
             if (!indicator) return;
-            // Sırası olan oyuncunun konumuna göre elin yerini ve yönünü belirle
             const positions = [
-                { left: '50%', top: '90%', rot: 90 },   // P0 (Alt) - Aşağıya işaret (Sana)
-                { left: '90%', top: '50%', rot: 0 },    // P1 (Sağ) - Sağa işaret
-                { left: '50%', top: '10%', rot: -90 },  // P2 (Üst) - Yukarıya işaret
-                { left: '10%', top: '50%', rot: 180 }   // P3 (Sol) - Sola işaret
+                { left: '50%', top: '92%', rot: 90 },   // P0 (Alt) - Sana işaret
+                { left: '92%', top: '50%', rot: 0 },    // P1 (Sağ) - Doğuya işaret
+                { left: '50%', top: '8%', rot: -90 },   // P2 (Üst) - Kuzeye işaret
+                { left: '8%', top: '50%', rot: 180 }    // P3 (Sol) - Batıya işaret
             ];
             const pos = positions[currentPlayerIndex];
             indicator.style.left = pos.left;
@@ -248,19 +247,25 @@
                 tablePile.push(card);
             }
 
-            currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+            renderTable(); // Kartın masaya düştüğünü hemen gör
 
-            // El bitti mi?
-            if (players.every(pl => pl.hand.length === 0)) {
-                if (deck.length > 0) {
-                    deal();
+            setTimeout(() => {
+                currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+
+                // El bitti mi?
+                if (players.every(pl => pl.hand.length === 0)) {
+                    if (deck.length > 0) {
+                        deal();
+                        renderTable();
+                        if (gameActive) startTurn();
+                    } else {
+                        finishGame();
+                    }
                 } else {
-                    finishGame();
-                    return;
+                    renderTable();
+                    if (gameActive) startTurn();
                 }
-            }
-            renderTable();
-            if (gameActive) startTurn();
+            }, 600); // 600ms bekle sonra sırayı değiştir
         }
 
         function finishGame() {
