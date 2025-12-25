@@ -27,7 +27,7 @@ body {
 #table {
     width: 95vmin;
     height: 95vmin;
-    background-image: url('masa_texture_100cm_real_scale.svg?v=6');
+    background-image: url('masa_texture_100cm_real_scale.svg?v=7');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
@@ -325,8 +325,8 @@ body {
 
 #start-btn {
     position: absolute;
-    left: 13.7%;
-    top: 8.2%;
+    left: 13.8%;
+    top: 8.3%;
     width: 15.6%;
     height: 4.8%;
     transform: translate(-50%, -50%);
@@ -349,7 +349,7 @@ body {
 
 .section-mode {
     left: 13.8%;
-    top: 13.5%;
+    top: 13.8%;
     transform: translateX(-50%);
 }
 
@@ -361,15 +361,15 @@ body {
 
 .dash-title {
     color: var(--accent);
-    font-size: 1.2vmin;
+    font-size: 1.25vmin;
     font-weight: bold;
-    margin-bottom: 0.5vmin;
+    margin-bottom: 0.6vmin;
     text-shadow: 0 0 0.5vmin #000;
 }
 
 .dash-row {
     display: flex;
-    gap: 2.5vmin;
+    gap: 3vmin;
     align-items: center;
 }
 
@@ -379,18 +379,24 @@ body {
     gap: 0.8vmin;
     cursor: pointer;
     color: #fff;
-    font-size: 1.5vmin;
+    font-size: 1.4vmin;
     font-weight: bold;
 }
 
 .check-box {
-    width: 2.2vmin;
-    height: 2.2vmin;
+    width: 2.1vmin;
+    height: 2.1vmin;
     border: 0.2vmin solid var(--accent);
     border-radius: 0.3vmin;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.2s;
+}
+
+.check-box:hover {
+    border-color: #fff;
+    background: rgba(212, 175, 55, 0.1);
 }
 
 .check-box span {
@@ -399,22 +405,44 @@ body {
     text-shadow: 0 0 1vmin #000;
 }
 
-.settings-trigger-btn {
+/* EXTRA ACTION BUTTONS (?, Gear) */
+.dash-extra {
     position: absolute;
-    left: 16.5%;
-    top: 19%;
-    width: 4%;
-    height: 4%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 5000;
+    left: 13.8%;
+    top: 19.5%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4vmin;
+    align-items: center;
 }
 
-.settings-trigger-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+.icon-btn {
+    width: 4.2vmin;
+    height: 4.2vmin;
     border-radius: 50%;
+    background: #004400;
+    border: 0.2vmin solid var(--accent);
+    color: var(--accent);
+    font-size: 2.4vmin;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.icon-btn:hover {
+    background: var(--accent);
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 0 1.5vmin var(--accent);
+}
+
+.gear-btn::after {
+    content: '⚙';
+    font-size: 2.8vmin;
+    line-height: 1;
 }
 
 /* MODALS */
@@ -427,7 +455,7 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
-    z-index: 4000;
+    z-index: 6000;
     justify-content: center;
     align-items: center;
     border-radius: 2vmin;

@@ -88,7 +88,10 @@
                 </div>
             </div>
 
-            <button id="settings-btn" class="settings-trigger-btn" onclick="toggleSettings()"></button>
+            <div class="dash-extra">
+                <button id="help-btn" class="icon-btn" onclick="showHelp()">?</button>
+                <button id="settings-btn" class="icon-btn gear-btn" onclick="toggleSettings()"></button>
+            </div>
         </div>
         <div id="deck-visual"></div>
 
@@ -176,6 +179,10 @@
             const modal = document.getElementById('settings-modal');
             const isVisible = (modal.style.display === 'flex');
             modal.style.display = isVisible ? 'none' : 'flex';
+        }
+
+        function showHelp() {
+            showAnnouncement("Pişti Pro v8.7");
         }
 
         function setWinningScore(score) {
