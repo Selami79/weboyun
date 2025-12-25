@@ -30,6 +30,8 @@ body {
     background-size: 100% 100%;
     position: relative;
     user-select: none;
+    flex-shrink: 0;
+    transform-origin: center;
 }
 
 /* Base Classes for Elements */
@@ -74,23 +76,23 @@ body {
 /* Player 0 (ALT / GÜNEY) */
 #name-0-box {
     left: 380px;
-    top: 920px;
+    top: 910px;
 }
 
 #round-0-box {
     left: 310px;
-    top: 920px;
+    top: 910px;
 }
 
 #total-0-box {
     left: 630px;
-    top: 920px;
+    top: 910px;
 }
 
 #hand-0 {
     position: absolute;
     left: 500px;
-    top: 800px;
+    top: 780px;
     transform: translateX(-50%);
     display: flex;
     gap: -30px;
@@ -141,19 +143,19 @@ body {
 /* Player 2 (ÜST / KUZEY / OYUNCU 3) */
 #name-2-box {
     left: 380px;
-    top: 40px;
+    top: 50px;
     transform: rotate(180deg);
 }
 
 #round-2-box {
     left: 630px;
-    top: 40px;
+    top: 50px;
     transform: rotate(180deg);
 }
 
 #total-2-box {
     left: 310px;
-    top: 40px;
+    top: 50px;
     transform: rotate(180deg);
 }
 
@@ -290,11 +292,15 @@ body {
 /* Deck Visual (DESTE area) */
 #deck-visual {
     position: absolute;
-    left: 765px;
-    top: 835px;
+    left: 755px;
+    top: 890px;
     width: 165px;
     height: 95px;
     background: url('card_back.png') center/cover;
+    background-size: 100% 100%;
+    transform: rotate(90deg);
+    /* Deste yatay durmalı */
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }

@@ -208,7 +208,17 @@
             setTimeout(() => el.style.opacity = '0', 2000);
         }
 
-        updateLobbyUI();
+        function updateScale() {
+            const table = document.getElementById('table');
+            const scale = Math.min(window.innerWidth / 1000, window.innerHeight / 1000);
+            table.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', updateScale);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLobbyUI();
+            updateScale();
+        });
     </script>
 </body>
 
