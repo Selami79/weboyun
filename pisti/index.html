@@ -135,10 +135,10 @@
             const indicator = document.getElementById('turn-indicator');
             if (!indicator) return;
             const positions = [
-                { left: '50%', top: '92%', rot: 90 },   // P0 (Alt) - Sana işaret
-                { left: '92%', top: '50%', rot: 0 },    // P1 (Sağ) - Doğuya işaret
-                { left: '50%', top: '8%', rot: -90 },   // P2 (Üst) - Kuzeye işaret
-                { left: '8%', top: '50%', rot: 180 }    // P3 (Sol) - Batıya işaret
+                { left: '50%', top: '96%', rot: 90 },   // P0 (Alt) - Tam senin dibinde
+                { left: '96%', top: '50%', rot: 0 },    // P1 (Sağ) - Sağ oyuncunun dibinde
+                { left: '50%', top: '4%', rot: -90 },   // P2 (Üst) - Üst oyuncunun dibinde
+                { left: '4%', top: '50%', rot: 180 }    // P3 (Sol) - Sol oyuncunun dibinde
             ];
             const pos = positions[currentPlayerIndex];
             indicator.style.left = pos.left;
