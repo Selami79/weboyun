@@ -53,6 +53,7 @@
 
         <div class="center-area">
             <div id="central-pile" style="position:relative; width:100%; height:100%;"></div>
+            <div id="turn-indicator" class="turn-indicator">👉</div>
         </div>
 
         <div id="deck-visual"></div>
@@ -130,6 +131,23 @@
             startTurn();
         }
 
+        function updateTurnIndicator() {
+            const indicator = document.getElementById('turn-indicator');
+            if (!indicator) return;
+            // Sırası olan oyuncunun konumuna göre elin yerini ve yönünü belirle
+            const positions = [
+                { left: '50%', top: '82%', rot: 0 },    // P0 (Alt) - Yukarı işaret
+                { left: '86%', top: '50%', rot: -90 },  // P1 (Sağ) - Sola işaret
+                { left: '50%', top: '18%', rot: 180 },  // P2 (Üst) - Aşağı işaret
+                { left: '14%', top: '50%', rot: 90 }    // P3 (Sol) - Sağa işaret
+            ];
+            const pos = positions[currentPlayerIndex];
+            indicator.style.left = pos.left;
+            indicator.style.top = pos.top;
+            indicator.style.transform = `translate(-50%, -50%) rotate(${pos.rot}deg)`;
+            indicator.style.opacity = gameActive ? '1' : '0';
+        }
+
         function deal() {
             if (deck.length === 0) return;
             for (let i = 0; i < 4; i++) {
@@ -198,6 +216,7 @@
                     pileEl.appendChild(cardEl);
                 });
             }
+            updateTurnIndicator();
         }
 
         function playCard(playerIdx, cardIdx) {
