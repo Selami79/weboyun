@@ -65,13 +65,14 @@
         const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         let deck = [];
         let players = [
-            { id: 0, name: "OYUNCU 1", type: "bot", hand: [], roundScore: 0, totalScore: 0 },
-            { id: 1, name: "OYUNCU 2", type: "bot", hand: [], roundScore: 0, totalScore: 0 },
-            { id: 2, name: "OYUNCU 3", type: "bot", hand: [], roundScore: 0, totalScore: 0 },
-            { id: 3, name: "OYUNCU 4", type: "bot", hand: [], roundScore: 0, totalScore: 0 }
+            { id: 0, name: "OYUNCU 1", type: "bot", hand: [], roundScore: 0, totalScore: 0, capturedCards: [] },
+            { id: 1, name: "OYUNCU 2", type: "bot", hand: [], roundScore: 0, totalScore: 0, capturedCards: [] },
+            { id: 2, name: "OYUNCU 3", type: "bot", hand: [], roundScore: 0, totalScore: 0, capturedCards: [] },
+            { id: 3, name: "OYUNCU 4", type: "bot", hand: [], roundScore: 0, totalScore: 0, capturedCards: [] }
         ];
         let tablePile = [];
         let currentPlayerIndex = 0;
+        let lastCapturerIdx = -1; // Yerdeki kağıtları en son kimin aldığını takip eder
         let gameActive = false;
 
         function joinSeat(index) {
@@ -96,7 +97,12 @@
             deck = [];
             for (let s of suites) {
                 for (let v of values) {
-                    deck.push({ suit: s, value: v, isRed: s === '♥' || s === '♦' });
+                    let pts = 0;
+                    if (v === 'A') pts = 1;
+                    if (v === 'J') pts = 1;
+                    if (s === '♣' && v === '2') pts = 2; // Sinek 2
+                    if (s === '♦' && v === '10') pts = 3; // Karo 10
+                    deck.push({ suit: s, value: v, isRed: s === '♥' || s === '♦', points: pts });
                 }
             }
             deck.sort(() => Math.random() - 0.5);
@@ -105,13 +111,18 @@
         function startGame() {
             if (gameActive) return;
             gameActive = true;
-            players.forEach(p => p.roundScore = 0);
+            lastCapturerIdx = -1;
+            players.forEach(p => {
+                p.roundScore = 0;
+                p.capturedCards = [];
+                p.hand = [];
+            });
             createDeck();
             tablePile = [];
             // İlk 4 kağıt: ilk 3'ü kapalı, 4.sü açık
             for (let i = 0; i < 4; i++) {
                 let card = deck.pop();
-                card.initiallyHidden = i < 3; // İlk 3 kağıdı işaretle
+                card.initiallyHidden = i < 3;
                 tablePile.push(card);
             }
             deal();
@@ -191,39 +202,108 @@
 
         function playCard(playerIdx, cardIdx) {
             if (currentPlayerIndex !== playerIdx || !gameActive) return;
-            const card = players[playerIdx].hand.splice(cardIdx, 1)[0];
+            const p = players[playerIdx];
+            const card = p.hand.splice(cardIdx, 1)[0];
             const topCard = tablePile[tablePile.length - 1];
+
+            // Capture logic
             if (topCard && (card.value === topCard.value || card.value === 'J')) {
-                let points = tablePile.length + 1;
+                let captured = [...tablePile, card];
+                let roundGain = 0;
+
+                // Pişti kontrolü
                 if (tablePile.length === 1 && card.value === topCard.value) {
+                    roundGain = (card.value === 'J' ? 20 : 10);
                     showAnnouncement("PİŞTİ!");
-                    points = (card.value === 'J' ? 20 : 10);
+                } else {
+                    // Normal alış: Kartların kendi puanlarını topla
+                    captured.forEach(c => roundGain += c.points);
                 }
-                players[playerIdx].roundScore += points;
-                players[playerIdx].totalScore += points;
+
+                p.roundScore += roundGain;
+                p.totalScore += roundGain;
+                p.capturedCards.push(...captured);
                 tablePile = [];
+                lastCapturerIdx = playerIdx; // En son kimin aldığını tut
             } else {
                 tablePile.push(card);
             }
+
             currentPlayerIndex = (currentPlayerIndex + 1) % 4;
-            if (players.every(p => p.hand.length === 0)) {
-                if (deck.length > 0) deal(); else gameActive = false;
+
+            // El bitti mi?
+            if (players.every(pl => pl.hand.length === 0)) {
+                if (deck.length > 0) {
+                    deal();
+                } else {
+                    finishGame();
+                    return;
+                }
             }
             renderTable();
             if (gameActive) startTurn();
+        }
+
+        function finishGame() {
+            gameActive = false;
+            // Yerde kalanları en son alana ekle
+            if (lastCapturerIdx !== -1 && tablePile.length > 0) {
+                let remainingPoints = 0;
+                tablePile.forEach(c => remainingPoints += c.points);
+                players[lastCapturerIdx].roundScore += remainingPoints;
+                players[lastCapturerIdx].totalScore += remainingPoints;
+                players[lastCapturerIdx].capturedCards.push(...tablePile);
+                tablePile = [];
+            }
+
+            // Kart üstünlüğü (+3 puan)
+            let maxCards = -1;
+            let winnerIdx = -1;
+            players.forEach((p, i) => {
+                if (p.capturedCards.length > maxCards) {
+                    maxCards = p.capturedCards.length;
+                    winnerIdx = i;
+                }
+            });
+            if (winnerIdx !== -1) {
+                players[winnerIdx].roundScore += 3;
+                players[winnerIdx].totalScore += 3;
+            }
+
+            showAnnouncement("OYUN BİTTİ!");
+            renderTable();
         }
 
         function startTurn() {
             const p = players[currentPlayerIndex];
             if (p.type === "bot") {
                 setTimeout(() => {
-                    let bestIdx = 0;
                     const top = tablePile[tablePile.length - 1];
+                    let chosenIdx = 0;
+
                     if (top) {
-                        const matchIdx = p.hand.findIndex(c => c.value === top.value || c.value === 'J');
-                        if (matchIdx !== -1) bestIdx = matchIdx;
+                        // 1. Değer eşleşmesi var mı? (Vale harici)
+                        const valMatch = p.hand.findIndex(c => c.value === top.value && c.value !== 'J');
+                        if (valMatch !== -1) {
+                            chosenIdx = valMatch;
+                        } else {
+                            // 2. Vale var mı? (Sadece yer birikmişse kullan)
+                            const jIdx = p.hand.findIndex(c => c.value === 'J');
+                            if (jIdx !== -1 && (tablePile.length > 2 || p.hand.length === 1)) {
+                                chosenIdx = jIdx;
+                            } else {
+                                // 3. En düşük puanlı kartı at
+                                chosenIdx = p.hand.findIndex(c => c.points === 0);
+                                if (chosenIdx === -1) chosenIdx = 0;
+                            }
+                        }
+                    } else {
+                        // Yer boşsa puanlı olmayan bir kart at
+                        chosenIdx = p.hand.findIndex(c => c.points === 0);
+                        if (chosenIdx === -1) chosenIdx = 0;
                     }
-                    playCard(currentPlayerIndex, bestIdx);
+
+                    playCard(currentPlayerIndex, chosenIdx);
                 }, 800);
             }
         }
