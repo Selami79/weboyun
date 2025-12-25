@@ -77,23 +77,23 @@ body {
 /* Player 0 (ALT / GÜNEY) */
 #name-0-box {
     left: 38%;
-    top: 92%;
+    top: 93.5%;
 }
 
 #round-0-box {
     left: 31%;
-    top: 92%;
+    top: 93.5%;
 }
 
 #total-0-box {
     left: 63%;
-    top: 92%;
+    top: 93.5%;
 }
 
 #hand-0 {
     position: absolute;
     left: 50%;
-    top: 80%;
+    top: 82%;
     transform: translateX(-50%);
     display: flex;
     gap: -3vmin;
@@ -101,7 +101,7 @@ body {
 
 /* Player 1 (SAĞ / DOĞU / OYUNCU 2) */
 #name-1-box {
-    left: 92%;
+    left: 93.5%;
     top: 38%;
     width: 4%;
     height: 24%;
@@ -110,7 +110,7 @@ body {
 }
 
 #round-1-box {
-    left: 92%;
+    left: 93.5%;
     top: 63%;
     transform: rotate(-90deg);
 }
@@ -118,7 +118,7 @@ body {
 /* Dikey sarı (sağdan bakış) */
 /* Sarı puan kutusu */
 #total-1-box {
-    left: 92%;
+    left: 93.5%;
     top: 31%;
     transform: rotate(-90deg);
 }
@@ -139,26 +139,26 @@ body {
 /* Player 2 (ÜST / KUZEY / OYUNCU 3) */
 #name-2-box {
     left: 38%;
-    top: 4%;
+    top: 2.5%;
     transform: rotate(180deg);
 }
 
 #round-2-box {
     left: 63%;
-    top: 4%;
+    top: 2.5%;
     transform: rotate(180deg);
 }
 
 #total-2-box {
     left: 31%;
-    top: 4%;
+    top: 2.5%;
     transform: rotate(180deg);
 }
 
 #hand-2 {
     position: absolute;
     left: 50%;
-    top: 18%;
+    top: 16%;
     transform: translateX(-50%);
     display: flex;
     gap: -3vmin;
@@ -166,7 +166,7 @@ body {
 
 /* Player 3 (SOL / BATI / OYUNCU 4) */
 #name-3-box {
-    left: 4%;
+    left: 2.5%;
     top: 38%;
     width: 4%;
     height: 24%;
@@ -174,7 +174,7 @@ body {
 }
 
 #round-3-box {
-    left: 4%;
+    left: 2.5%;
     top: 31%;
     transform: rotate(90deg);
 }
@@ -183,7 +183,7 @@ body {
 /* Dikey sarı */
 /* Sarı puan kutusu (Solda üste denk geliyor) */
 #total-3-box {
-    left: 4%;
+    left: 2.5%;
     top: 63%;
     transform: rotate(90deg);
 }
@@ -282,8 +282,10 @@ body {
 /* Deck Visual (DESTE area) */
 #deck-visual {
     position: absolute;
-    left: 67.8%;
-    top: 82%;
+    left: 75.5%;
+    /* Shifted right */
+    top: 89%;
+    /* Shifted down */
     width: 16.5%;
     height: 9.5%;
     background: url('card_back.png') center/cover;
