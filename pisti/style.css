@@ -263,8 +263,8 @@ body {
 .start-btn {
     position: absolute;
     left: 14%;
-    top: 9%;
-    width: 14%;
+    top: 8.5%;
+    width: 16%;
     height: 5%;
     transform: translate(-50%, -50%);
     background: #8B0000;
@@ -272,22 +272,21 @@ body {
     cursor: pointer;
     color: #FFD700;
     font-weight: bold;
-    font-size: 2.5vmax;
+    font-size: 2.2vmin;
     border-radius: 1vmin;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: Arial, sans-serif;
+    z-index: 5000;
 }
 
 .lang-check {
-    position: absolute;
     color: #00FF00;
-    font-size: 2vmin;
-    top: -1.5vmin;
-    right: -1vmin;
-    text-shadow: 0 0 1vmin #000;
+    font-size: 2.2vmin;
     pointer-events: none;
+    font-weight: bold;
+    text-shadow: 0 0 1vmin #000;
 }
 
 .announcement {
@@ -445,22 +444,25 @@ body {
 /* LANGUAGE BUTTONS */
 .lang-btn {
     position: absolute;
-    width: 3.5%;
-    height: 3.5%;
+    width: 3%;
+    height: 3%;
     background: transparent;
     border: none;
     cursor: pointer;
     z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .tr-btn {
-    left: 81.5%;
-    top: 8.5%;
+    left: 82%;
+    top: 8%;
 }
 
 .en-btn {
-    left: 89.5%;
-    top: 8.5%;
+    left: 90%;
+    top: 8%;
 }
 
 .lang-btn:hover {
