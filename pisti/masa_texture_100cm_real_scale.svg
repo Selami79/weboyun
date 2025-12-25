@@ -1,0 +1,38 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- ZEMIN -->
+  <rect x="0" y="0" width="1000" height="1000" fill="#003300" />
+  <rect x="15" y="15" width="970" height="970" rx="20" fill="none" stroke="#D4AF37" stroke-width="8" />
+  <rect x="30" y="30" width="940" height="940" rx="15" fill="none" stroke="#B8860B" stroke-width="2" />
+
+  <!-- ORTA ALAN -->
+  <rect x="390" y="390" width="220" height="220" rx="15" fill="#004400" stroke="#4488FF" stroke-width="4" fill-opacity="0.3" />
+  <rect x="400" y="400" width="200" height="200" rx="10" fill="none" stroke="#4488FF" stroke-width="2" stroke-dasharray="8,8" opacity="0.5" />
+
+  <!-- GÜNEY (ALT) - P0 -->
+  <rect id="slot-name-0" x="380" y="920" width="240" height="40" rx="5" fill="#002200" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-round-0" x="310" y="920" width="60" height="40" rx="20" fill="none" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-total-0" x="630" y="920" width="60" height="40" rx="20" fill="none" stroke="#FF4444" stroke-width="2" />
+
+  <!-- KUZEY (ÜST) - P2 -->
+  <rect id="slot-name-2" x="380" y="40" width="240" height="40" rx="5" fill="#002200" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-round-2" x="630" y="40" width="60" height="40" rx="20" fill="none" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-total-2" x="310" y="40" width="60" height="40" rx="20" fill="none" stroke="#FF4444" stroke-width="2" />
+
+  <!-- BATI (SOL) - P3 -->
+  <rect id="slot-name-3" x="40" y="380" width="40" height="240" rx="5" fill="#002200" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-round-3" x="40" y="310" width="40" height="60" rx="20" fill="none" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-total-3" x="40" y="630" width="40" height="60" rx="20" fill="none" stroke="#FF4444" stroke-width="2" />
+
+  <!-- DOĞU (SAĞ) - P1 -->
+  <rect id="slot-name-1" x="920" y="380" width="40" height="240" rx="5" fill="#002200" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-round-1" x="920" y="630" width="40" height="60" rx="20" fill="none" stroke="#D4AF37" stroke-width="2" />
+  <rect id="slot-total-1" x="920" y="310" width="40" height="60" rx="20" fill="none" stroke="#FF4444" stroke-width="2" />
+
+  <!-- DESTE ALANI -->
+  <rect x="730" y="850" width="180" height="110" rx="5" fill="none" stroke="#666666" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="820" y="930" font-family="Arial" font-size="24" fill="#666666" text-anchor="middle">DESTE</text>
+
+  <!-- LOGO -->
+  <text x="500" y="350" font-family="Georgia" font-weight="bold" font-size="80" fill="#002200" opacity="0.3" text-anchor="middle">PİŞTİ</text>
+  <text x="500" y="670" font-family="Georgia" font-weight="bold" font-size="80" fill="#002200" opacity="0.3" text-anchor="middle" transform="rotate(180, 500, 650)">PİŞTİ</text>
+</svg>

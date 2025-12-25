@@ -5,7 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pişti Pro - Precision Layout</title>
-    <link rel="stylesheet" href="style.css?v=2.3">
+    <script>
+        const VERSION = Date.now();
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'style.css?v=' + VERSION;
+        document.head.appendChild(link);
+    </script>
 </head>
 
 <body>
@@ -80,8 +86,10 @@
 
         function updateLobbyUI() {
             players.forEach((p, i) => {
-                document.getElementById(`name-${i}`).innerText = p.name;
-                document.getElementById(`btn-${i}`).style.display = p.type === "human" ? "none" : "inline-block";
+                const nameEl = document.getElementById(`name-${i}`);
+                if (nameEl) nameEl.innerText = p.name;
+                const btnEl = document.getElementById(`btn-${i}`);
+                if (btnEl) btnEl.style.display = p.type === "human" ? "none" : "inline-block";
             });
         }
 
@@ -120,11 +128,11 @@
             const div = document.createElement('div');
             div.className = `card ${card.isRed ? 'red' : ''}`;
             if (isHidden) {
-                div.style.background = 'linear-gradient(135deg, #0d2b1d 0%, #000 100%)';
-                div.style.border = "1px solid var(--accent)";
-                div.innerHTML = '<div style="color:var(--accent); font-size:10px; text-align:center; margin-top:50%;">PISTI</div>';
+                div.style.background = 'url("card_back.png") center/cover';
+                div.style.border = "none";
+                div.innerHTML = '';
             } else {
-                div.innerHTML = `<div style="font-weight:bold">${card.value}</div><div style="font-size:24px; align-self:center">${card.suit}</div>`;
+                div.innerHTML = `<div style="font-weight:bold">${card.value}</div><div style="font-size:3.5vmin; align-self:center">${card.suit}</div>`;
             }
             return div;
         }
@@ -132,35 +140,42 @@
         function renderTable() {
             players.forEach((p, i) => {
                 const handEl = document.getElementById(`hand-${i}`);
-                handEl.innerHTML = '';
-                p.hand.forEach((card, cardIndex) => {
-                    const isHidden = (p.type === "bot");
-                    const cardEl = renderCard(card, isHidden);
-                    if (p.type === "human" && currentPlayerIndex === i) {
-                        cardEl.onclick = () => playCard(i, cardIndex);
-                    }
-                    handEl.appendChild(cardEl);
-                });
+                if (handEl) {
+                    handEl.innerHTML = '';
+                    p.hand.forEach((card, cardIndex) => {
+                        const isHidden = (p.type === "bot");
+                        const cardEl = renderCard(card, isHidden);
+                        if (p.type === "human" && currentPlayerIndex === i) {
+                            cardEl.onclick = () => playCard(i, cardIndex);
+                        }
+                        handEl.appendChild(cardEl);
+                    });
+                }
 
-                document.getElementById(`name-${i}-box`).className = `name-box ${currentPlayerIndex === i ? 'active-border' : ''}`;
-                document.getElementById(`round-${i}-box`).innerText = p.roundScore;
-                document.getElementById(`total-${i}-box`).innerText = p.totalScore;
+                const nameBox = document.getElementById(`name-${i}-box`);
+                if (nameBox) nameBox.className = `name-box ${currentPlayerIndex === i ? 'active-border' : ''}`;
+                const roundBox = document.getElementById(`round-${i}-box`);
+                if (roundBox) roundBox.innerText = p.roundScore;
+                const totalBox = document.getElementById(`total-${i}-box`);
+                if (totalBox) totalBox.innerText = p.totalScore;
             });
 
             const deckVis = document.getElementById('deck-visual');
             if (deckVis) deckVis.style.display = deck.length > 0 ? "block" : "none";
 
             const pileEl = document.getElementById('central-pile');
-            pileEl.innerHTML = '';
-            tablePile.forEach((c, i) => {
-                const isTop = i === tablePile.length - 1;
-                const cardEl = renderCard(c, !isTop);
-                cardEl.style.position = 'absolute';
-                cardEl.style.transform = `rotate(${i * 3}deg)`;
-                cardEl.style.left = "50%"; cardEl.style.top = "50%";
-                cardEl.style.marginLeft = "-32px"; cardEl.style.marginTop = "-47px";
-                pileEl.appendChild(cardEl);
-            });
+            if (pileEl) {
+                pileEl.innerHTML = '';
+                tablePile.forEach((c, i) => {
+                    const isTop = i === tablePile.length - 1;
+                    const cardEl = renderCard(c, !isTop);
+                    cardEl.style.position = 'absolute';
+                    cardEl.style.transform = `rotate(${i * 3}deg)`;
+                    cardEl.style.left = "50%"; cardEl.style.top = "50%";
+                    cardEl.style.transform += " translate(-50%, -50%)";
+                    pileEl.appendChild(cardEl);
+                });
+            }
         }
 
         function playCard(playerIdx, cardIdx) {
@@ -204,18 +219,13 @@
 
         function showAnnouncement(text) {
             const el = document.getElementById('announcement');
-            el.innerText = text; el.style.opacity = '1';
-            setTimeout(() => el.style.opacity = '0', 2000);
+            if (el) {
+                el.innerText = text; el.style.opacity = '1';
+                setTimeout(() => el.style.opacity = '0', 2000);
+            }
         }
 
-        const VERSION = Date.now();
-        document.querySelector('link[rel="stylesheet"]').href = 'style.css?v=' + VERSION;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateLobbyUI();
-            // Initial render if game state exists
-            if (gameActive) renderTable();
-        });
+        document.addEventListener('DOMContentLoaded', updateLobbyUI);
     </script>
 </body>
 
