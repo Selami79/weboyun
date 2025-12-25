@@ -98,25 +98,35 @@ body {
 
 /* Player 1 (SAĞ / DOĞU / OYUNCU 2) */
 #name-1-box {
-    left: 918px;
+    left: 920px;
     top: 380px;
-    width: 44px;
+    width: 40px;
     height: 240px;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
 }
 
 #round-1-box {
-    left: 910px;
-    top: 620px;
+    left: 920px;
+    top: 630px;
+    width: 40px;
+    height: 60px;
+    transform: rotate(0deg);
 }
+
+/* Dikey sarı */
 
 /* Sarı puan kutusu */
 
 #total-1-box {
-    left: 910px;
-    top: 298px;
+    left: 920px;
+    top: 310px;
+    width: 40px;
+    height: 60px;
+    transform: rotate(0deg);
 }
+
+/* Dikey kırmızı */
 
 /* Kırmızı puan kutusu (Sağda üste denk geliyor) */
 
@@ -134,16 +144,19 @@ body {
 #name-2-box {
     left: 380px;
     top: 40px;
+    transform: rotate(180deg);
 }
 
 #round-2-box {
     left: 630px;
     top: 40px;
+    transform: rotate(180deg);
 }
 
 #total-2-box {
     left: 310px;
     top: 40px;
+    transform: rotate(180deg);
 }
 
 #hand-2 {
@@ -157,24 +170,32 @@ body {
 
 /* Player 3 (SOL / BATI / OYUNCU 4) */
 #name-3-box {
-    left: 38px;
+    left: 40px;
     top: 380px;
-    width: 44px;
+    width: 40px;
     height: 240px;
     writing-mode: vertical-rl;
 }
 
 #round-3-box {
-    left: 30px;
-    top: 298px;
+    left: 40px;
+    top: 310px;
+    width: 40px;
+    height: 60px;
 }
+
+/* Dikey sarı */
 
 /* Sarı puan kutusu (Solda üste denk geliyor) */
 
 #total-3-box {
-    left: 30px;
-    top: 620px;
+    left: 40px;
+    top: 630px;
+    width: 40px;
+    height: 60px;
 }
+
+/* Dikey kırmızı */
 
 /* Kırmızı puan kutusu */
 
