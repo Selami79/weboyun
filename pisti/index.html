@@ -371,7 +371,10 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', updateLobbyUI);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLobbyUI();
+            setLanguage('TR');
+        });
     </script>
 </body>
 
