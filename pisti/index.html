@@ -57,10 +57,15 @@
         </div>
 
         <div id="deck-visual"></div>
-        <button id="start-btn" class="start-btn" onclick="startGame()"></button>
+        <button id="start-btn" class="start-btn" onclick="startGame()">BAŞLAT</button>
         <button id="settings-btn" class="settings-trigger-btn" onclick="toggleSettings()"></button>
-        <button id="lang-tr-btn" class="lang-btn tr-btn" onclick="setLanguage('TR')"></button>
-        <button id="lang-en-btn" class="lang-btn en-btn" onclick="setLanguage('EN')"></button>
+
+        <button id="lang-tr-btn" class="lang-btn tr-btn" onclick="setLanguage('TR')">
+            <span id="check-tr" class="lang-check">✔</span>
+        </button>
+        <button id="lang-en-btn" class="lang-btn en-btn" onclick="setLanguage('EN')">
+            <span id="check-en" class="lang-check" style="display:none;">✔</span>
+        </button>
 
         <!-- SETTINGS MODAL -->
         <div id="settings-modal" class="settings-modal">
@@ -110,10 +115,14 @@
 
         function setLanguage(l) {
             currentLang = l;
+            document.getElementById('start-btn').innerText = lang[currentLang].start;
             document.querySelectorAll('.join-btn').forEach(btn => btn.innerText = lang[currentLang].join);
             document.getElementById('set-title').innerText = lang[currentLang].settings;
             document.getElementById('set-desc').innerText = lang[currentLang].selectTarget;
             document.getElementById('set-close').innerText = lang[currentLang].ok;
+
+            document.getElementById('check-tr').style.display = (l === 'TR' ? 'block' : 'none');
+            document.getElementById('check-en').style.display = (l === 'EN' ? 'block' : 'none');
 
             players.forEach((p, i) => {
                 if (p.type === "human") p.name = lang[currentLang].me;
