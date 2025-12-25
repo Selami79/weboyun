@@ -2,9 +2,8 @@
     --accent: #D4AF37;
     --red-score: #FF4444;
     --text: #f8fafc;
-    --glass: rgba(0, 0, 0, 0.6);
-    --card-width: 80px;
-    --card-height: 115px;
+    --card-width: 65px;
+    --card-height: 95px;
 }
 
 * {
@@ -22,7 +21,6 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    color: var(--text);
 }
 
 #table {
@@ -31,109 +29,164 @@ body {
     background-image: url('table_bg.png');
     background-size: 100% 100%;
     position: relative;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 1);
+    user-select: none;
 }
 
-.player-area {
+/* Base Classes for Elements */
+.name-box,
+.score-box {
     position: absolute;
-    width: 440px;
-    /* Base width for scores + name */
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-/* Specific Positions for Player HUDs */
-#p0 {
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* GÜNEY */
-#p1 {
-    top: 50%;
-    right: -145px;
-    transform: translateY(-50%) rotate(-90deg);
-}
-
-/* DOĞU */
-#p2 {
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%) rotate(180deg);
-}
-
-/* KUZEY */
-#p3 {
-    top: 50%;
-    left: -145px;
-    transform: translateY(-50%) rotate(90deg);
-}
-
-/* BATI */
-
-.player-hud {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.player-name-box {
-    width: 240px;
-    height: 40px;
-    background: rgba(0, 34, 0, 0.8);
-    border: 2px solid var(--accent);
-    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.name-box {
+    width: 240px;
+    height: 40px;
+    border: 2px solid var(--accent);
     color: var(--accent);
-    font-size: 18px;
-    text-transform: uppercase;
+    font-size: 16px;
+    border-radius: 4px;
 }
 
 .score-box {
     width: 60px;
     height: 40px;
     border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
     font-size: 20px;
 }
 
 .round-score {
-    border: 2.5px solid var(--accent);
+    border: 2px solid var(--accent);
     color: var(--accent);
-    background: rgba(0, 0, 0, 0.5);
 }
 
 .total-score {
-    border: 2.5px solid var(--red-score);
+    border: 2px solid var(--red-score);
     color: var(--red-score);
-    background: rgba(0, 0, 0, 0.5);
 }
 
-.hand {
+/* COORDINATES BY PLAYER (1px = 1mm per SVG) */
+
+/* Player 0 (ALT / GÜNEY) */
+#name-0-box {
+    left: 380px;
+    top: 920px;
+}
+
+#round-0-box {
+    left: 310px;
+    top: 920px;
+}
+
+#total-0-box {
+    left: 630px;
+    top: 920px;
+}
+
+#hand-0 {
+    position: absolute;
+    left: 500px;
+    top: 800px;
+    transform: translateX(-50%);
     display: flex;
-    gap: -45px;
-    margin-bottom: 5px;
+    gap: -30px;
 }
 
-/* Pile and Center */
+/* Player 1 (SAĞ / DOĞU / OYUNCU 2) */
+#name-1-box {
+    left: 920px;
+    top: 380px;
+    width: 40px;
+    height: 240px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+#round-1-box {
+    left: 920px;
+    top: 630px;
+}
+
+#total-1-box {
+    left: 920px;
+    top: 310px;
+}
+
+#hand-1 {
+    position: absolute;
+    right: 180px;
+    top: 500px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: -50px;
+}
+
+/* Player 2 (ÜST / KUZEY / OYUNCU 3) */
+#name-2-box {
+    left: 380px;
+    top: 40px;
+}
+
+#round-2-box {
+    left: 630px;
+    top: 40px;
+}
+
+#total-2-box {
+    left: 310px;
+    top: 40px;
+}
+
+#hand-2 {
+    position: absolute;
+    left: 500px;
+    top: 180px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: -30px;
+}
+
+/* Player 3 (SOL / BATI / OYUNCU 4) */
+#name-3-box {
+    left: 40px;
+    top: 380px;
+    width: 40px;
+    height: 240px;
+    writing-mode: vertical-rl;
+}
+
+#round-3-box {
+    left: 40px;
+    top: 310px;
+}
+
+#total-3-box {
+    left: 40px;
+    top: 630px;
+}
+
+#hand-3 {
+    position: absolute;
+    left: 180px;
+    top: 500px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: -50px;
+}
+
+/* Gameplay Elements */
 .center-area {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 220px;
-    height: 220px;
-    transform: translate(-50%, -50%);
+    left: 400px;
+    top: 400px;
+    width: 200px;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,34 +195,37 @@ body {
 .card {
     width: var(--card-width);
     height: var(--card-height);
-    background: white;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 6px;
-    color: #1a1a1a;
-    transition: all 0.2s;
+    padding: 4px;
+    color: #000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
 .card:hover {
-    transform: translateY(-20px) scale(1.1) !important;
-    z-index: 500;
+    transform: translateY(-15px) scale(1.1);
+    z-index: 100;
 }
 
 .card.red {
     color: #e11d48;
 }
 
-.card-value {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.card-suit {
-    font-size: 26px;
-    align-self: center;
+.start-btn {
+    position: absolute;
+    left: 60px;
+    top: 60px;
+    width: 160px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .announcement {
@@ -177,39 +233,27 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 70px;
-    font-weight: 900;
+    font-size: 80px;
+    font-weight: bold;
     color: var(--accent);
     text-shadow: 0 0 20px #000;
     opacity: 0;
-    z-index: 1000;
     pointer-events: none;
-}
-
-.start-btn {
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    width: 160px;
-    height: 50px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .join-btn {
     background: var(--accent);
     color: #000;
     border: none;
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 2px 8px;
+    border-radius: 3px;
     font-size: 10px;
-    font-weight: bold;
     cursor: pointer;
+    margin-left: 5px;
 }
 
-.active .player-name-box {
-    box-shadow: 0 0 20px var(--accent);
-    background: rgba(212, 175, 55, 0.2);
+.active-border {
+    border-color: #fff !important;
+    box-shadow: 0 0 15px var(--accent);
 }
