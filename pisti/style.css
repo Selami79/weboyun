@@ -27,7 +27,7 @@ body {
 #table {
     width: 95vmin;
     height: 95vmin;
-    background-image: url('masa_texture_100cm_real_scale.svg?v=3');
+    background-image: url('masa_texture_100cm_real_scale.svg?v=4');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
@@ -56,15 +56,14 @@ body {
 }
 
 .score-box {
-    width: 6%;
-    height: 4%;
+    width: 6.5%;
+    height: 4.5%;
     border-radius: 3vmin;
     font-size: 2vmin;
 }
 
 .score-val {
     display: inline-block;
-    transition: transform 0.3s;
 }
 
 .round-score {
@@ -77,7 +76,7 @@ body {
     color: var(--red-score);
 }
 
-/* COORDINATES (CENTER-POINT ALIGNMENT BY REVERTED SVG) */
+/* COORDINATES (CENTER-POINT ALIGNMENT) */
 
 /* Player 0 (ALT / GÜNEY) */
 #name-0-box {
@@ -111,26 +110,35 @@ body {
 #name-1-box {
     left: 94%;
     top: 50%;
-    width: 4%;
+    width: 4.5%;
     height: 24%;
     writing-mode: vertical-rl;
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
+/* Kapsülleri dikey (4.5x6.5) yapıp döndürmüyoruz, sadece içindeki rakamı döndürüyoruz */
 #round-1-box {
     left: 94%;
     top: 66%;
-    width: 4%;
-    height: 6%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    width: 4.5%;
+    height: 6.5%;
+    transform: translate(-50%, -50%);
+}
+
+#round-1-box .score-val {
+    transform: rotate(-90deg);
 }
 
 #total-1-box {
     left: 94%;
     top: 34%;
-    width: 4%;
-    height: 6%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    width: 4.5%;
+    height: 6.5%;
+    transform: translate(-50%, -50%);
+}
+
+#total-1-box .score-val {
+    transform: rotate(-90deg);
 }
 
 #hand-1 {
@@ -153,13 +161,21 @@ body {
 #round-2-box {
     left: 66%;
     top: 6%;
-    transform: translate(-50%, -50%) rotate(180deg);
+    transform: translate(-50%, -50%);
+}
+
+#round-2-box .score-val {
+    transform: rotate(180deg);
 }
 
 #total-2-box {
     left: 34%;
     top: 6%;
-    transform: translate(-50%, -50%) rotate(180deg);
+    transform: translate(-50%, -50%);
+}
+
+#total-2-box .score-val {
+    transform: rotate(180deg);
 }
 
 #hand-2 {
@@ -175,26 +191,35 @@ body {
 #name-3-box {
     left: 6%;
     top: 50%;
-    width: 4%;
+    width: 4.5%;
     height: 24%;
     writing-mode: vertical-rl;
     transform: translate(-50%, -50%);
 }
 
+/* Kapsülleri dikey (4.5x6.5) yapıp döndürmüyoruz, sadece içindeki rakamı döndürüyoruz */
 #round-3-box {
     left: 6%;
     top: 34%;
-    width: 4%;
-    height: 6%;
-    transform: translate(-50%, -50%) rotate(90deg);
+    width: 4.5%;
+    height: 6.5%;
+    transform: translate(-50%, -50%);
+}
+
+#round-3-box .score-val {
+    transform: rotate(90deg);
 }
 
 #total-3-box {
     left: 6%;
     top: 66%;
-    width: 4%;
-    height: 6%;
-    transform: translate(-50%, -50%) rotate(90deg);
+    width: 4.5%;
+    height: 6.5%;
+    transform: translate(-50%, -50%);
+}
+
+#total-3-box .score-val {
+    transform: rotate(90deg);
 }
 
 #hand-3 {
@@ -271,7 +296,7 @@ body {
     z-index: 1000;
 }
 
-/* Deck Visual (DESTE area - Center by SVG dotted box: x=840, y=850) */
+/* Deck Visual (DESTE area - Center by SVG dotted rect) */
 #deck-visual {
     position: absolute;
     left: 84%;
