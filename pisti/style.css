@@ -48,8 +48,7 @@ body {
 .name-box {
     width: 240px;
     height: 40px;
-    border: 2px solid #0f0;
-    /* DEBUG BORDER */
+    border: 2px solid var(--accent);
     color: var(--accent);
     font-size: 16px;
     border-radius: 4px;
@@ -58,8 +57,6 @@ body {
 .score-box {
     width: 60px;
     height: 40px;
-    border: 2px solid #f0f;
-    /* DEBUG BORDER */
     border-radius: 20px;
     font-size: 20px;
 }
@@ -79,23 +76,24 @@ body {
 /* Player 0 (ALT / GÜNEY) */
 #name-0-box {
     left: 380px;
-    top: 910px;
+    top: 935px;
+    /* Adjusted down */
 }
 
 #round-0-box {
     left: 310px;
-    top: 910px;
+    top: 935px;
 }
 
 #total-0-box {
     left: 630px;
-    top: 910px;
+    top: 935px;
 }
 
 #hand-0 {
     position: absolute;
     left: 500px;
-    top: 780px;
+    top: 800px;
     transform: translateX(-50%);
     display: flex;
     gap: -30px;
@@ -103,7 +101,8 @@ body {
 
 /* Player 1 (SAĞ / DOĞU / OYUNCU 2) */
 #name-1-box {
-    left: 920px;
+    left: 935px;
+    /* Adjusted right */
     top: 380px;
     width: 40px;
     height: 240px;
@@ -112,7 +111,7 @@ body {
 }
 
 #round-1-box {
-    left: 910px;
+    left: 935px;
     top: 630px;
     transform: rotate(-90deg);
 }
@@ -122,7 +121,7 @@ body {
 /* Sarı puan kutusu */
 
 #total-1-box {
-    left: 910px;
+    left: 935px;
     top: 310px;
     transform: rotate(-90deg);
 }
@@ -146,19 +145,20 @@ body {
 /* Player 2 (ÜST / KUZEY / OYUNCU 3) */
 #name-2-box {
     left: 380px;
-    top: 50px;
+    top: 25px;
+    /* Adjusted up */
     transform: rotate(180deg);
 }
 
 #round-2-box {
     left: 630px;
-    top: 50px;
+    top: 25px;
     transform: rotate(180deg);
 }
 
 #total-2-box {
     left: 310px;
-    top: 50px;
+    top: 25px;
     transform: rotate(180deg);
 }
 
@@ -173,7 +173,8 @@ body {
 
 /* Player 3 (SOL / BATI / OYUNCU 4) */
 #name-3-box {
-    left: 40px;
+    left: 25px;
+    /* Adjusted left */
     top: 380px;
     width: 40px;
     height: 240px;
@@ -181,7 +182,7 @@ body {
 }
 
 #round-3-box {
-    left: 30px;
+    left: 25px;
     top: 310px;
     transform: rotate(90deg);
 }
@@ -193,7 +194,7 @@ body {
 /* Sarı puan kutusu (Solda üste denk geliyor) */
 
 #total-3-box {
-    left: 30px;
+    left: 25px;
     top: 630px;
     transform: rotate(90deg);
 }
@@ -295,17 +296,16 @@ body {
 /* Deck Visual (DESTE area) */
 #deck-visual {
     position: absolute;
-    left: 755px;
-    top: 835px;
-    /* Manually adjusted based on screenshot */
-    width: 165px;
-    height: 95px;
+    left: 770px;
+    top: 910px;
+    /* Adjusted down significantly */
+    width: 150px;
+    height: 80px;
     background: url('card_back.png') center/cover;
     background-size: 100% 100%;
     transform: rotate(0deg);
-    /* Trying fallback without rotation first */
+    /* Text slot is horizontal, defining portrait card rotated would be overkill, just using horizontal box */
     border-radius: 6px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    border: 3px solid #f00;
-    /* RED DEBUG BORDER */
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
