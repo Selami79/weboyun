@@ -107,24 +107,22 @@ body {
 }
 
 #round-1-box {
-    left: 920px;
+    left: 910px;
     top: 630px;
-    width: 40px;
-    height: 60px;
-    transform: rotate(0deg);
+    transform: rotate(-90deg);
 }
 
-/* Dikey sarı */
+/* Dikey sarı (sağdan bakış) */
 
 /* Sarı puan kutusu */
 
 #total-1-box {
-    left: 920px;
+    left: 910px;
     top: 310px;
-    width: 40px;
-    height: 60px;
-    transform: rotate(0deg);
+    transform: rotate(-90deg);
 }
+
+/* Dikey kırmızı (sağdan bakış) */
 
 /* Dikey kırmızı */
 
@@ -178,22 +176,24 @@ body {
 }
 
 #round-3-box {
-    left: 40px;
+    left: 30px;
     top: 310px;
-    width: 40px;
-    height: 60px;
+    transform: rotate(90deg);
 }
+
+/* Dikey sarı (soldan bakış) */
 
 /* Dikey sarı */
 
 /* Sarı puan kutusu (Solda üste denk geliyor) */
 
 #total-3-box {
-    left: 40px;
+    left: 30px;
     top: 630px;
-    width: 40px;
-    height: 60px;
+    transform: rotate(90deg);
 }
+
+/* Dikey kırmızı (soldan bakış) */
 
 /* Dikey kırmızı */
 
