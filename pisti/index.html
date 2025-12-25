@@ -108,7 +108,12 @@
             players.forEach(p => p.roundScore = 0);
             createDeck();
             tablePile = [];
-            for (let i = 0; i < 4; i++) tablePile.push(deck.pop());
+            // İlk 4 kağıt: ilk 3'ü kapalı, 4.sü açık
+            for (let i = 0; i < 4; i++) {
+                let card = deck.pop();
+                card.initiallyHidden = i < 3; // İlk 3 kağıdı işaretle
+                tablePile.push(card);
+            }
             deal();
             renderTable();
             startTurn();
@@ -154,9 +159,9 @@
                 const nameBox = document.getElementById(`name-${i}-box`);
                 if (nameBox) nameBox.className = `name-box ${currentPlayerIndex === i ? 'active-border' : ''}`;
                 const roundBox = document.getElementById(`round-${i}-box`);
-                if (roundBox) roundBox.innerText = p.roundScore;
+                if (roundBox) roundBox.querySelector('.score-val').innerText = p.roundScore;
                 const totalBox = document.getElementById(`total-${i}-box`);
-                if (totalBox) totalBox.innerText = p.totalScore;
+                if (totalBox) totalBox.querySelector('.score-val').innerText = p.totalScore;
             });
 
             const deckVis = document.getElementById('deck-visual');
@@ -165,11 +170,16 @@
             const pileEl = document.getElementById('central-pile');
             if (pileEl) {
                 pileEl.innerHTML = '';
-                tablePile.forEach((c, i) => {
-                    const isTop = i === tablePile.length - 1;
-                    const cardEl = renderCard(c, !isTop);
+                // Sadece son 4 kağıdı göster
+                const visiblePile = tablePile.slice(-4);
+                visiblePile.forEach((c, i) => {
+                    // Eğer başlangıçtaki gizli kağıtlardan biriyse ve en üstte değilse kapalı göster
+                    const isTop = (tablePile.indexOf(c) === tablePile.length - 1);
+                    const isHidden = c.initiallyHidden && !isTop;
+
+                    const cardEl = renderCard(c, isHidden);
                     cardEl.style.position = 'absolute';
-                    cardEl.style.transform = `rotate(${i * 3}deg)`;
+                    cardEl.style.transform = `rotate(${i * 5}deg)`;
                     cardEl.style.left = "50%"; cardEl.style.top = "50%";
                     cardEl.style.transform += " translate(-50%, -50%)";
                     pileEl.appendChild(cardEl);
