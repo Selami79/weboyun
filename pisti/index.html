@@ -57,8 +57,23 @@
         </div>
 
         <div id="deck-visual"></div>
-
         <button id="start-btn" class="start-btn" onclick="startGame()"></button>
+        <button id="settings-btn" class="settings-trigger-btn" onclick="toggleSettings()"></button>
+
+        <!-- SETTINGS MODAL -->
+        <div id="settings-modal" class="settings-modal">
+            <div class="settings-content">
+                <h3>OYUN AYARLARI</h3>
+                <p>Hedef Puan Seçin:</p>
+                <div class="score-options">
+                    <button class="score-opt" onclick="setWinningScore(51)">51</button>
+                    <button class="score-opt active-opt" onclick="setWinningScore(101)">101</button>
+                    <button class="score-opt" onclick="setWinningScore(151)">151</button>
+                    <button class="score-opt" onclick="setWinningScore(201)">201</button>
+                </div>
+                <button class="close-settings" onclick="toggleSettings()">TAMAM</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -73,8 +88,23 @@
         ];
         let tablePile = [];
         let currentPlayerIndex = 0;
-        let lastCapturerIdx = -1; // Yerdeki kağıtları en son kimin aldığını takip eder
+        let lastCapturerIdx = -1;
         let gameActive = false;
+        let winningScore = 101; // Varsayılan hedef puan
+
+        function toggleSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function setWinningScore(score) {
+            winningScore = score;
+            document.querySelectorAll('.score-opt').forEach(btn => {
+                btn.classList.remove('active-opt');
+                if (parseInt(btn.innerText) === score) btn.classList.add('active-opt');
+            });
+            showAnnouncement(`Hedef: ${score} Puan`);
+        }
 
         function joinSeat(index) {
             if (gameActive) return;
@@ -294,7 +324,14 @@
                 players[winnerIdx].totalScore += 3;
             }
 
-            showAnnouncement("OYUN BİTTİ!");
+            // Maç Galibi Kontrolü
+            const matchWinner = players.find(p => p.totalScore >= winningScore);
+            if (matchWinner) {
+                showAnnouncement(`${matchWinner.name} KAZANDI! (${matchWinner.totalScore} PUAN)`);
+                gameActive = false;
+            } else {
+                showAnnouncement("EL BİTTİ!");
+            }
             renderTable();
         }
 
