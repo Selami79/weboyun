@@ -1,23 +1,23 @@
 :root {
-    --table-bg: radial-gradient(circle at center, #1a4731 0%, #0d2b1d 100%);
-    --accent: #d4af37;
+    --accent: #D4AF37;
     --text: #f8fafc;
-    --glass: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --card-width: 90px;
-    --card-height: 130px;
+    --glass: rgba(0, 0, 0, 0.4);
+    --glass-border: rgba(212, 175, 55, 0.3);
+    --card-width: 85px;
+    --card-height: 125px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
     background: #000;
     height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,40 +26,56 @@ body {
 }
 
 #table {
-    width: 100vw;
-    height: 100vh;
-    background: var(--table-bg);
+    width: 1000px;
+    height: 1000px;
+    background-image: url('table_bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     position: relative;
-    border: 15px solid #2d1a0b;
-    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
-    display: grid;
-    grid-template-areas:
-        ". top ."
-        "left center right"
-        ". bottom .";
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 2fr 1fr;
-    padding: 20px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
 }
 
 .player-area {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 10px;
-    position: relative;
-    transition: all 0.3s;
 }
 
-.player-area.active {
-    filter: drop-shadow(0 0 15px var(--accent));
+/* Precise positioning based on SVG coordinate system */
+#p0 {
+    bottom: 85px;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+/* GÜNEY */
+#p1 {
+    top: 50%;
+    right: 85px;
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+/* DOĞU */
+#p2 {
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+}
+
+/* KUZEY */
+#p3 {
+    top: 50%;
+    left: 85px;
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* BATI */
 
 .hand {
     display: flex;
-    gap: -30px;
-    /* Overlap cards */
+    gap: -40px;
     padding: 10px;
 }
 
@@ -67,65 +83,45 @@ body {
     font-weight: bold;
     color: var(--accent);
     background: var(--glass);
-    padding: 5px 15px;
+    padding: 5px 20px;
     border-radius: 20px;
     border: 1px solid var(--glass-border);
-    margin-bottom: 5px;
-}
-
-/* Positioning */
-#p0 {
-    grid-area: bottom;
-}
-
-#p1 {
-    grid-area: right;
-    flex-direction: row-reverse;
-}
-
-#p2 {
-    grid-area: top;
-    flex-direction: column-reverse;
-}
-
-#p3 {
-    grid-area: left;
-    flex-direction: row;
-}
-
-#p1 .hand,
-#p3 .hand {
-    flex-direction: column;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 .center-area {
-    grid-area: center;
+    position: absolute;
+    top: 500px;
+    left: 500px;
+    width: 220px;
+    height: 220px;
+    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 .card {
     width: var(--card-width);
     height: var(--card-height);
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 8px;
+    padding: 6px;
     color: #1a1a1a;
     position: relative;
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    user-select: none;
+    transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     cursor: pointer;
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.05);
+    transform: translateY(-20px) scale(1.1) !important;
     z-index: 100;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
 }
 
 .card.red {
@@ -133,13 +129,13 @@ body {
 }
 
 .card-value {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 900;
     line-height: 1;
 }
 
 .card-suit {
-    font-size: 24px;
+    font-size: 28px;
     align-self: center;
 }
 
@@ -151,36 +147,32 @@ body {
 
 .deck-visual {
     position: absolute;
-    left: -150px;
-    width: var(--card-width);
-    height: var(--card-height);
-    background: #2d1a0b;
+    top: 790px;
+    left: 770px;
+    width: 140px;
+    height: 85px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    border: 1px solid var(--accent);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    color: var(--accent);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hud {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    left: 40px;
+    top: 250px;
     background: var(--glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    padding: 15px;
+    padding: 20px;
     border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    z-index: 10;
 }
 
 .score-line {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 5px;
+    gap: 30px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 4px;
 }
 
 .announcement {
@@ -188,48 +180,46 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 48px;
+    font-size: 80px;
     font-weight: 900;
     color: var(--accent);
-    pointer-events: none;
+    text-shadow: 0 0 30px rgba(0, 0, 0, 1);
     opacity: 0;
-    transition: opacity 0.5s;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px 40px;
-    border-radius: 50px;
+    z-index: 2000;
+    pointer-events: none;
 }
 
 .join-btn {
     background: var(--accent);
     color: #000;
     border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 12px;
     font-weight: bold;
-}
-
-.join-btn:hover {
-    opacity: 0.8;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
 .start-btn {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: #1a4731;
-    color: var(--accent);
-    border: 2px solid var(--accent);
-    padding: 15px 40px;
-    border-radius: 10px;
-    font-size: 20px;
+    top: 75px;
+    left: 80px;
+    width: 125px;
+    height: 40px;
+    background: transparent;
+    color: #FFD700;
+    border: none;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
 .start-btn:hover {
-    background: var(--accent);
-    color: #000;
+    text-shadow: 0 0 10px #FFD700;
+}
+
+.active .player-info {
+    border-color: #FFF;
+    box-shadow: 0 0 15px var(--accent);
 }
