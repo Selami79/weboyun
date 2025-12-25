@@ -93,7 +93,9 @@
                 <button id="settings-btn" class="icon-btn gear-btn" onclick="toggleSettings()"></button>
             </div>
         </div>
-        <div id="deck-visual"></div>
+        <div id="deck-visual">
+            <div id="deck-count">0</div>
+        </div>
 
         <!-- SETTINGS MODAL -->
         <div id="settings-modal" class="settings-modal">
@@ -316,6 +318,9 @@
                 cardEl.style.zIndex = i;
                 pileEl.appendChild(cardEl);
             }
+            const deckCountEl = document.getElementById('deck-count');
+            if (deckCountEl) deckCountEl.innerText = deck.length;
+
             updateTurnIndicator();
         }
 

@@ -27,7 +27,7 @@
       transform="matrix(-0.001463,-0.99999893,0.99999951,-9.9250929e-4,0,0)" />
    <text x="761.21942" y="937.50299" font-family="Arial" font-size="30.0188px" fill="#666666" text-anchor="middle"
       dominant-baseline="middle" transform="matrix(1.10186,-0.00109361,0.00132774,0.90755496,0,0)" id="text6"
-      style="stroke-width:1.50093">DESTE</text>
+      style="stroke-width:1.50093; display:none;">DESTE</text>
    <!-- 1. KONTROL PANELİ (Sadece Zemin) -->
    <g transform="translate(60, 60)" id="g14">
       <rect x="0" y="0" width="160" height="50" rx="10" fill="#8B0000" stroke="#FFD700" stroke-width="3" id="rect7" />

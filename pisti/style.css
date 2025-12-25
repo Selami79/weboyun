@@ -281,6 +281,25 @@ body {
     background-size: 100% 100%;
     border-radius: 1vmin;
     box-shadow: 0.5vmin 0.5vmin 2vmin rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#deck-count {
+    background: rgba(0, 0, 0, 0.8);
+    border: 0.2vmin solid var(--accent);
+    color: var(--accent);
+    width: 5vmin;
+    height: 5vmin;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5vmin;
+    font-weight: bold;
+    box-shadow: 0 0 1vmin rgba(212, 175, 55, 0.5);
+    z-index: 10;
 }
 
 .join-btn {
@@ -376,22 +395,24 @@ body {
 .dash-opt {
     display: flex;
     align-items: center;
-    gap: 0.8vmin;
+    gap: 1vmin;
     cursor: pointer;
     color: #fff;
-    font-size: 1.4vmin;
+    font-size: 1.5vmin;
     font-weight: bold;
+    line-height: 1;
 }
 
 .check-box {
-    width: 2.1vmin;
-    height: 2.1vmin;
+    width: 2.3vmin;
+    height: 2.3vmin;
     border: 0.2vmin solid var(--accent);
-    border-radius: 0.3vmin;
+    border-radius: 0.4vmin;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.2s;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .check-box:hover {
