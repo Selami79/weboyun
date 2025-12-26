@@ -185,13 +185,20 @@
             if (serverState.players) {
                 serverState.players.forEach((sp, i) => {
                     if (players[i]) {
+                        // Sync Data
                         players[i].hand = sp.hand || [];
-                        // Sync scores
+                        players[i].type = sp.type; // Check if bot or human
+                        players[i].name = sp.name; // Server sends real name
+
                         if (sp.scores) {
-                            // If server sends detailed scores... currently it sends {0:0...} in root
+                            // If server sends detailed scores... 
                         }
                     }
                 });
+
+                // Update Lobby visuals (Names, Buttons)
+                updateLobbyUI();
+
                 // Sync root scores if available
                 if (serverState.scores) {
                     players.forEach((p, i) => {
@@ -350,12 +357,19 @@
         }
 
         function joinSeat(index) {
-            if (gameActive) return;
-            players[index].type = "human";
-            players[index].name = lang[currentLang].me;
-            updateLobbyUI();
+            // Emit join request to server
+            // We use a generated UUID if viewer UUID is missing (browser test)
+            const myUuid = new URLSearchParams(window.location.search).get('viewer') || 'browser-' + Math.floor(Math.random() * 10000);
+
+            socket.emit('join_table', {
+                tableId: tableId,
+                playerUuid: myUuid,
+                playerName: lang[currentLang].me, // Provide default name, server might override
+                seatIndex: index
+            });
         }
 
+        // updateLobbyUI is now driven by renderTable/state_update, but let's keep it for initial state
         function updateLobbyUI() {
             players.forEach((p, i) => {
                 const nameSpan = document.getElementById(`name-${i}`);
@@ -364,11 +378,18 @@
                     nameSpan.innerText = p.name;
                     joinBtn.style.display = "none";
                 } else {
-                    nameSpan.innerText = "";
+                    nameSpan.innerText = ""; // Bot names are handled in server state but join btn should be visible if 'empty'
+                    // If server says 'bot', it means empty/AI slot in Pisti logic usually
+                    // But in our server, we init with bots.
+                    // Let's hide join button if I AM seated somewhere? No, allow seat switching maybe.
+                    // For now: Show button if it's a bot (available seat)
                     joinBtn.style.display = "inline-block";
                     joinBtn.innerText = lang[currentLang].join;
                 }
             });
+
+            // If I am seated, maybe hide other buttons? 
+            // Let's keep it simple.
         }
 
         function createDeck() {
