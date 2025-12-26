@@ -9,6 +9,7 @@
         const v = Date.now();
         document.write(`<link rel="stylesheet" href="style.css?v=${v}">`);
     </script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 </head>
 
 <body>
@@ -146,10 +147,76 @@
         let currentPlayerIndex = 0;
         let lastCapturerIdx = -1;
         let gameActive = false;
-        let winningScore = 101;
         let isTurnProcessing = false;
         let tableId = new URLSearchParams(window.location.search).get('tableId') || 'default_table';
-        let gameServerUrl = new URLSearchParams(window.location.search).get('server') || 'http://localhost:3000'; // Default fallback
+        // Ensure protocol is correct (http for now as VPS is likely not SSL yet)
+        let gameServerUrl = new URLSearchParams(window.location.search).get('server') || 'http://109.176.199.186:3000';
+
+        const socket = io(gameServerUrl);
+
+        socket.on('connect', () => {
+            console.log("Connected to Game Server:", gameServerUrl);
+
+            // Auto-join if we have player info
+            const urlParams = new URLSearchParams(window.location.search);
+            const viewerId = urlParams.get('viewer');
+
+            // Find my seat if possible
+            let mySeatIdx = -1;
+            const playersParam = urlParams.get('players');
+            if (playersParam) {
+                const seatData = playersParam.split(',');
+                seatData.forEach((data, i) => {
+                    if (data.includes(viewerId)) mySeatIdx = i;
+                });
+            }
+
+            socket.emit('join_table', {
+                tableId: tableId,
+                playerUuid: viewerId,
+                playerName: lang[currentLang].me, // Or fetch real name
+                seatIndex: mySeatIdx
+            });
+        });
+
+        socket.on('state_update', (serverState) => {
+            if (serverState.deck) deck = serverState.deck;
+            if (serverState.pile) tablePile = serverState.pile;
+            if (serverState.players) {
+                serverState.players.forEach((sp, i) => {
+                    if (players[i]) {
+                        players[i].hand = sp.hand || [];
+                        // Sync scores
+                        if (sp.scores) {
+                            // If server sends detailed scores... currently it sends {0:0...} in root
+                        }
+                    }
+                });
+                // Sync root scores if available
+                if (serverState.scores) {
+                    players.forEach((p, i) => {
+                        if (serverState.scores[i] !== undefined) p.totalScore = serverState.scores[i];
+                    });
+                }
+            }
+            if (serverState.turnIndex !== undefined) currentPlayerIndex = serverState.turnIndex;
+
+            renderTable();
+            updateTurnIndicator();
+        });
+
+        socket.on('card_played', (data) => {
+            if (typeof executeMove === "function") {
+                executeMove(data.seatIndex, data.cardIndex);
+            }
+        });
+
+        socket.on('game_reset', () => {
+            document.getElementById('central-pile').innerHTML = "";
+            const deckCountEl = document.getElementById('deck-count');
+            if (deckCountEl) deckCountEl.innerText = "0";
+            showAnnouncement(lang[currentLang].reset + "!");
+        });
 
         function setLanguage(l) {
             currentLang = l;
@@ -243,11 +310,13 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v10.1\n
+                Pişti Pro v11.0\n
                 ------------------\n
+                - GERÇEK MULTIPLAYER (Socket.io)\n
+                - Dinamik Sunucu Bağlantısı\n
                 - OYUNU SIFIRLA (Reset) Özelliği\n
-                - Gerçek SL Oyuncu İsimleri (Avatar Name)\n
-                - Temiz El Görünümü (Çakışma Önleyici Yerleşim)\n
+                - Gerçek SL Oyuncu İsimleri\n
+                - Senkronize Oyun Masası\n
                 - Akıllı Orta Deste (Net Son 4 Kart)\n
                 - SL Senkronizasyonu (Oturunca Otomatik Katılma)\n
                 - Benzersiz Masa Kimliği (Table ID)\n
@@ -274,33 +343,10 @@
         }
 
         function resetGame() {
-            gameActive = false;
-            deck = [];
-            tablePile = [];
-            currentPlayerIndex = 0;
-            lastCapturerIdx = -1;
-
-            // Reset players
-            players.forEach(p => {
-                p.hand = [];
-                p.roundScore = 0;
-                p.totalScore = 0;
-                p.capturedCards = [];
-            });
-
-            // Clear UI
-            renderTable();
-
-            // Re-sync lobby to show Start button if needed or just reset visuals
-            // Since we are resetting, we should probably hide hands/pile immediately
-            document.getElementById('central-pile').innerHTML = "";
-            document.getElementById('deck-count').innerText = "0";
-
-            toggleSettings(); // Close modal
-            showAnnouncement(lang[currentLang].reset + "!");
-
-            // Ensure turn indicator is hidden
-            updateTurnIndicator();
+            if (confirm(lang[currentLang].reset + "?")) {
+                socket.emit('reset_game', { tableId: tableId });
+                toggleSettings(); // Close modal
+            }
         }
 
         function joinSeat(index) {
@@ -446,9 +492,26 @@
         }
 
         function playCard(playerIdx, cardIdx) {
-            if (currentPlayerIndex !== playerIdx || !gameActive || isTurnProcessing) return;
-            isTurnProcessing = true;
+            // User trigger
+            if (currentPlayerIndex !== playerIdx) return;
+            // Optimistic check: is it my turn?
+            socket.emit('play_card', {
+                tableId: tableId,
+                seatIndex: playerIdx,
+                cardIndex: cardIdx
+            });
+        }
+
+        function executeMove(playerIdx, cardIdx) {
+            // Logic Execution (driven by server broadcast)
+            // Safety: state might have updated already
             const p = players[playerIdx];
+            if (!p.hand[cardIdx]) return;
+
+            // if (currentPlayerIndex !== playerIdx || !gameActive || isTurnProcessing) return; 
+            // Server validates turn, so we can relax strict checks or keep them for animation safety
+            isTurnProcessing = true;
+
             const card = p.hand.splice(cardIdx, 1)[0];
             const topCard = tablePile[tablePile.length - 1];
 
@@ -471,21 +534,12 @@
             }
 
             renderTable();
+            renderTable();
             setTimeout(() => {
-                currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+                // Determine next turn? No, Server sends state update which sets currentPlayerIndex
                 isTurnProcessing = false;
-                if (players.every(pl => pl.hand.length === 0)) {
-                    if (deck.length > 0) {
-                        deal();
-                        renderTable();
-                        if (gameActive) startTurn();
-                    } else {
-                        finishGame();
-                    }
-                } else {
-                    renderTable();
-                    if (gameActive) startTurn();
-                }
+                // If local prediction was correct, state_update matches. 
+                // We rely on state_update to advance turn index visually
             }, 600);
         }
 
