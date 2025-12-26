@@ -144,6 +144,7 @@
         let lastCapturerIdx = -1;
         let gameActive = false;
         let winningScore = 101;
+        let isTurnProcessing = false;
 
         function setLanguage(l) {
             currentLang = l;
@@ -185,8 +186,9 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v9.6\n
+                Pişti Pro v9.7\n
                 ------------------\n
+                - Güvenli Tur Geçişi (Hatalı Tıklama Koruması)\n
                 - Simetrik El Pozisyonları (Merkeze Yakın)\n
                 - Kesintisiz Oyun Döngüsü (Hedefe Kadar Devam)\n
                 - Otomatik Yeni El Başlatma\n
@@ -352,7 +354,8 @@
         }
 
         function playCard(playerIdx, cardIdx) {
-            if (currentPlayerIndex !== playerIdx || !gameActive) return;
+            if (currentPlayerIndex !== playerIdx || !gameActive || isTurnProcessing) return;
+            isTurnProcessing = true;
             const p = players[playerIdx];
             const card = p.hand.splice(cardIdx, 1)[0];
             const topCard = tablePile[tablePile.length - 1];
@@ -378,6 +381,7 @@
             renderTable();
             setTimeout(() => {
                 currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+                isTurnProcessing = false;
                 if (players.every(pl => pl.hand.length === 0)) {
                     if (deck.length > 0) {
                         deal();
