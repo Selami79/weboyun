@@ -145,9 +145,12 @@
         let gameActive = false;
         let winningScore = 101;
         let isTurnProcessing = false;
+        let tableId = new URLSearchParams(window.location.search).get('tableId') || 'default_table';
 
         function setLanguage(l) {
             currentLang = l;
+            localStorage.setItem('pisti_lang_' + tableId, l); // Save language for THIS table only
+
             document.getElementById('start-btn').innerText = lang[currentLang].start;
             document.querySelectorAll('.join-btn').forEach(btn => btn.innerText = lang[currentLang].join);
             document.getElementById('set-title').innerText = lang[currentLang].settings;
@@ -170,6 +173,14 @@
             showAnnouncement(lang[currentLang].target + ": " + winningScore);
         }
 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('pisti_lang_' + tableId);
+            setLanguage(savedLang || 'TR');
+
+            updateLobbyUI();
+        });
+
         let currentGameMode = 'single';
         function setGameMode(m) {
             currentGameMode = m;
@@ -186,8 +197,10 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v9.7\n
+                Pişti Pro v9.8\n
                 ------------------\n
+                - Benzersiz Masa Kimliği (Table ID)\n
+                - Masaya Özel Ayar Kaydı (Dil Seçimi)\n
                 - Güvenli Tur Geçişi (Hatalı Tıklama Koruması)\n
                 - Simetrik El Pozisyonları (Merkeze Yakın)\n
                 - Kesintisiz Oyun Döngüsü (Hedefe Kadar Devam)\n
@@ -477,10 +490,6 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            updateLobbyUI();
-            setLanguage('TR');
-        });
     </script>
 </body>
 
