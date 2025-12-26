@@ -149,8 +149,8 @@
         let gameActive = false;
         let isTurnProcessing = false;
         let tableId = new URLSearchParams(window.location.search).get('tableId') || 'default_table';
-        // Ensure protocol is correct (http for now as VPS is likely not SSL yet)
-        let gameServerUrl = new URLSearchParams(window.location.search).get('server') || 'http://109.176.199.186:3000';
+        // Protocol-relative or HTTPS fallback
+        let gameServerUrl = new URLSearchParams(window.location.search).get('server') || 'https://ixir.me';
 
         const socket = io(gameServerUrl);
 
