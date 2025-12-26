@@ -13,7 +13,15 @@
 </head>
 
 <body>
-    <div id="table">
+    <div id="intro-screen">
+        <div class="intro-content">
+            <h1>PİŞTİ PRO</h1>
+            <p>Premium Card Game Experience</p>
+            <button id="enter-btn" onclick="enterGame()">OYUNA BAŞLA</button>
+        </div>
+    </div>
+
+    <div id="table" style="display: none;">
         <div id="announcement" class="announcement">PİŞTİ!</div>
 
         <!-- PLAYER 0 (Alt) -->
@@ -644,7 +652,17 @@
             }
         }
 
+        function enterGame() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('table').style.display = 'block';
+
+            // Re-render to ensure sizes/positions are correct
+            renderTable();
+            updateTurnIndicator();
+        }
+
     </script>
 </body>
 
 </html>
+```
