@@ -174,10 +174,41 @@
         }
 
 
+        function syncStateFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playersParam = urlParams.get('players');
+            const viewerId = urlParams.get('viewer');
+
+            if (!playersParam) return;
+
+            const seatUUIDs = playersParam.split(',');
+            seatUUIDs.forEach((uuid, index) => {
+                if (index >= 4) return;
+
+                if (uuid && uuid !== 'None' && uuid !== '') {
+                    // Someone is sitting here
+                    players[index].type = "human";
+                    // If it's me
+                    if (viewerId && uuid === viewerId) {
+                        players[index].name = lang[currentLang].me;
+                    } else {
+                        // Someone else
+                        players[index].name = "OYUNCU " + (index + 1);
+                    }
+                } else {
+                    // Seat is empty -> Bot takes over or remains open?
+                    // For now, if empty, revert to bot to keep game flow
+                    players[index].type = "bot";
+                    players[index].name = "OYUNCU " + (index + 1);
+                }
+            });
+            updateLobbyUI();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('pisti_lang_' + tableId);
             setLanguage(savedLang || 'TR');
-
+            syncStateFromURL();
             updateLobbyUI();
         });
 
@@ -197,8 +228,10 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v9.8\n
+                Pişti Pro v9.9\n
                 ------------------\n
+                - SL Senkronizasyonu (Oturunca Otomatik Katılma)\n
+                - Sayfa Yenileme Sorunu Çözüldü\n
                 - Benzersiz Masa Kimliği (Table ID)\n
                 - Masaya Özel Ayar Kaydı (Dil Seçimi)\n
                 - Güvenli Tur Geçişi (Hatalı Tıklama Koruması)\n
