@@ -149,6 +149,7 @@
         let winningScore = 101;
         let isTurnProcessing = false;
         let tableId = new URLSearchParams(window.location.search).get('tableId') || 'default_table';
+        let gameServerUrl = new URLSearchParams(window.location.search).get('server') || 'http://localhost:3000'; // Default fallback
 
         function setLanguage(l) {
             currentLang = l;

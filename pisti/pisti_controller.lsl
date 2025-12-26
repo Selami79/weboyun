@@ -1,4 +1,6 @@
+// Premium Pişti Table Controller - 4 Player & Seat Sync Version
 string GITHUB_URL = "https://selami79.github.io/weboyun/pisti/index.html"; 
+string GAME_SERVER = "http://109.176.199.186:3000"; // SUNUCU ADRESİ
 string lsl_url;
 integer target_link = -1; 
 string SCREEN_NAME = "PISTI_SCREEN"; // ÖNEMLİ: Masanın yüzeyindeki primin adını 'PISTI_SCREEN' yapın!
@@ -104,6 +106,7 @@ update_media()
                      + "&viewer=" + "[VIEWER_KEY]" 
                      + "&players=" + llEscapeURL(whitelist)
                      + "&tableId=" + (string)llGetKey()
+                     + "&server=" + llEscapeURL(GAME_SERVER)
                      + "&v=" + (string)llFrand(9999);
     
     llSetLinkMedia(target_link, media_face, [
