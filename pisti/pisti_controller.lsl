@@ -66,9 +66,11 @@ scan_seats()
             for(j = 0; j < 4; ++j) {
                 if(llList2Integer(seat_found_flags, j)) {
                     vector s_pos = llList2Vector(seat_positions, j);
-                    // Avatar koltuğa 1.5 metreden yakınsa o koltuktadır
+                    // Avatar koltuğa 1.2 metreden yakınsa o koltuktadır
                     if(llVecDist(av_pos, s_pos) < 1.2) { 
-                        seated_players = llListReplaceList(seated_players, [(string)id], j, j);
+                        string av_name = llGetDisplayName(id);
+                        if(av_name == "") av_name = llKey2Name(id);
+                        seated_players = llListReplaceList(seated_players, [(string)id + ":" + av_name], j, j);
                     }
                 }
             }

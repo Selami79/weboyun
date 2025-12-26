@@ -91,10 +91,12 @@ body {
 #hand-0 {
     position: absolute;
     left: 50%;
-    top: 88%;
+    top: 83%;
+    /* Moved up from 88% to avoid bottom edge/name clash */
     transform: translateX(-50%);
     display: flex;
-    gap: -2vmin;
+    gap: -1.5vmin;
+    /* Less overlap for better visibility */
 }
 
 #name-1-box {
@@ -132,12 +134,14 @@ body {
 
 #hand-1 {
     position: absolute;
-    right: 12%;
+    right: 14%;
+    /* Moved inward from 12% */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: -4vmin;
+    gap: -3vmin;
+    /* Vertical gap adjustment */
 }
 
 #name-2-box {
@@ -169,10 +173,11 @@ body {
 #hand-2 {
     position: absolute;
     left: 50%;
-    top: 12%;
+    top: 17%;
+    /* Moved down from 12% */
     transform: translateX(-50%);
     display: flex;
-    gap: -2vmin;
+    gap: -1.5vmin;
 }
 
 #name-3-box {
@@ -210,12 +215,13 @@ body {
 
 #hand-3 {
     position: absolute;
-    left: 12%;
+    left: 14%;
+    /* Moved inward from 12% */
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: -4vmin;
+    gap: -3vmin;
 }
 
 /* Gameplay Elements */

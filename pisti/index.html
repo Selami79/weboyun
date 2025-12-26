@@ -181,23 +181,33 @@
 
             if (!playersParam) return;
 
-            const seatUUIDs = playersParam.split(',');
-            seatUUIDs.forEach((uuid, index) => {
+            const seatData = playersParam.split(',');
+            seatData.forEach((data, index) => {
                 if (index >= 4) return;
+
+                // Format is "uuid:name" or just "uuid" or "None"
+                let parts = data.split(':');
+                let uuid = parts[0];
+                let rawName = parts.length > 1 ? parts[1] : "";
+                let avName = rawName ? decodeURIComponent(rawName) : "";
 
                 if (uuid && uuid !== 'None' && uuid !== '') {
                     // Someone is sitting here
                     players[index].type = "human";
-                    // If it's me
-                    if (viewerId && uuid === viewerId) {
-                        players[index].name = lang[currentLang].me;
+
+                    // Priority: If specific name sent, use it. Else fallbacks.
+                    if (avName) {
+                        players[index].name = (viewerId && uuid === viewerId) ? lang[currentLang].me : avName;
                     } else {
-                        // Someone else
-                        players[index].name = "OYUNCU " + (index + 1);
+                        // Old fallback if no name sent
+                        if (viewerId && uuid === viewerId) {
+                            players[index].name = lang[currentLang].me;
+                        } else {
+                            players[index].name = "OYUNCU " + (index + 1);
+                        }
                     }
                 } else {
-                    // Seat is empty -> Bot takes over or remains open?
-                    // For now, if empty, revert to bot to keep game flow
+                    // Seat is empty -> Bot
                     players[index].type = "bot";
                     players[index].name = "OYUNCU " + (index + 1);
                 }
@@ -228,23 +238,18 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v9.9\n
+                Pişti Pro v10.0\n
                 ------------------\n
+                - Gerçek SL Oyuncu İsimleri (Avatar Name)\n
+                - Temiz El Görünümü (Çakışma Önleyici Yerleşim)\n
+                - Akıllı Orta Deste (Net Son 4 Kart)\n
                 - SL Senkronizasyonu (Oturunca Otomatik Katılma)\n
-                - Sayfa Yenileme Sorunu Çözüldü\n
                 - Benzersiz Masa Kimliği (Table ID)\n
                 - Masaya Özel Ayar Kaydı (Dil Seçimi)\n
                 - Güvenli Tur Geçişi (Hatalı Tıklama Koruması)\n
                 - Simetrik El Pozisyonları (Merkeze Yakın)\n
                 - Kesintisiz Oyun Döngüsü (Hedefe Kadar Devam)\n
                 - Otomatik Yeni El Başlatma\n
-                - Gerçekçi Deste Dağılımı (Random Scatter)\n
-                - Görünür El Pozisyonları (Kenarlardan Uzak)\n
-                - Akıllı Kart Oryantasyonu (Fix)\n
-                - Merkez Pile Ortalama\n
-                - Saha Temizliği & Kart Pozisyonları\n
-                - Dashboard Konum Düzeltmeleri\n
-                - Tam HTML Kontrol Paneli\n
                 - Dinamik Deste Sayacı\n
                 - Akıllı Dil Desteği (TR/EN)\n
                 - Ayarlanabilir Hedef Puan\n
@@ -372,25 +377,30 @@
 
             const pileEl = document.getElementById('central-pile');
             pileEl.innerHTML = "";
-            const visibleCount = 8;
+            const visibleCount = 4;
             const startIdx = Math.max(0, tablePile.length - visibleCount);
             for (let i = startIdx; i < tablePile.length; i++) {
                 const card = tablePile[i];
                 const cardEl = renderCard(card, card.initiallyHidden);
                 cardEl.style.position = "absolute";
 
-                // Random scatter effect
-                /* Use deterministic randomness based on index to avoid jitter on re-render */
-                const pseudoRandom = Math.sin(i * 999);
-                let rot = (pseudoRandom * 20); // -20 to 20 deg
-                let offX = (Math.cos(i * 777) * 0.8); // -0.8 to 0.8 vmin
-                let offY = (Math.sin(i * 333) * 0.8);
+                // Clean Stacking Effect (No random chaos)
+                // Cards stack with slight random rotation for realism but stay centered
+                // Last card (topmost) is always straight
+                const isTop = (i === tablePile.length - 1);
 
-                // If it's the very top card, keep it relatively straight for readability
-                if (i === tablePile.length - 1) rot = (pseudoRandom * 5);
+                /* Deterministic pseudo-random for consistent look per card */
+                const pseudoRandom = Math.sin(i * 999);
+                let rot = isTop ? 0 : (pseudoRandom * 15); // +/- 15 deg for cards below
+                let offX = isTop ? 0 : (Math.cos(i * 123) * 0.5);
+                let offY = isTop ? 0 : (Math.sin(i * 321) * 0.5);
 
                 cardEl.style.transform = `translate(calc(-50% + ${offX}vmin), calc(-50% + ${offY}vmin)) rotate(${rot}deg)`;
                 cardEl.style.zIndex = i;
+
+                // Add slight shadow for depth
+                cardEl.style.boxShadow = "0 0.5vmin 1vmin rgba(0,0,0,0.3)";
+
                 pileEl.appendChild(cardEl);
             }
             const deckCountEl = document.getElementById('deck-count');
