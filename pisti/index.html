@@ -109,6 +109,7 @@
                     <button class="score-opt" onclick="setWinningScore(201)">201</button>
                 </div>
                 <button class="close-settings" id="set-close" onclick="toggleSettings()">TAMAM</button>
+                <button id="reset-btn-ui" class="reset-btn" onclick="resetGame()">OYUNU SIFIRLA</button>
             </div>
         </div>
     </div>
@@ -119,13 +120,15 @@
                 start: "BAŞLAT", join: "OTUR", pisti: "PİŞTİ!", gameover: "OYUN BİTTİ!",
                 roundOver: "EL BİTTİ!", won: "KAZANDI!", target: "Hedef", settings: "OYUN AYARLARI",
                 selectTarget: "Hedef Puan Seçin:", ok: "TAMAM", me: "SEN",
-                mode: "OYUN MODU", single: "TEKLİ", partner: "EŞLİ", language: "DİL SEÇİMİ"
+                mode: "OYUN MODU", single: "TEKLİ", partner: "EŞLİ", language: "DİL SEÇİMİ",
+                reset: "OYUNU SIFIRLA"
             },
             EN: {
                 start: "START", join: "JOIN", pisti: "PISTI!", gameover: "GAME OVER!",
                 roundOver: "ROUND OVER!", won: "WON!", target: "Target", settings: "SETTINGS",
                 selectTarget: "Select Target Score:", ok: "OK", me: "YOU",
-                mode: "GAME MODE", single: "SINGLE", partner: "PARTNERS", language: "LANGUAGE"
+                mode: "GAME MODE", single: "SINGLE", partner: "PARTNERS", language: "LANGUAGE",
+                reset: "RESET GAME"
             }
         };
         let currentLang = 'TR';
@@ -156,6 +159,7 @@
             document.getElementById('set-title').innerText = lang[currentLang].settings;
             document.getElementById('set-desc').innerText = lang[currentLang].selectTarget;
             document.getElementById('set-close').innerText = lang[currentLang].ok;
+            document.getElementById('reset-btn-ui').innerText = lang[currentLang].reset;
 
             // Labels
             document.getElementById('lbl-mode').innerText = lang[currentLang].mode;
@@ -238,8 +242,9 @@
 
         function showHelp() {
             const versionInfo = `
-                Pişti Pro v10.0\n
+                Pişti Pro v10.1\n
                 ------------------\n
+                - OYUNU SIFIRLA (Reset) Özelliği\n
                 - Gerçek SL Oyuncu İsimleri (Avatar Name)\n
                 - Temiz El Görünümü (Çakışma Önleyici Yerleşim)\n
                 - Akıllı Orta Deste (Net Son 4 Kart)\n
@@ -265,6 +270,36 @@
                 if (parseInt(btn.innerText) === score) btn.classList.add('active-opt');
             });
             showAnnouncement(lang[currentLang].target + ": " + score);
+        }
+
+        function resetGame() {
+            gameActive = false;
+            deck = [];
+            tablePile = [];
+            currentPlayerIndex = 0;
+            lastCapturerIdx = -1;
+
+            // Reset players
+            players.forEach(p => {
+                p.hand = [];
+                p.roundScore = 0;
+                p.totalScore = 0;
+                p.capturedCards = [];
+            });
+
+            // Clear UI
+            renderTable();
+
+            // Re-sync lobby to show Start button if needed or just reset visuals
+            // Since we are resetting, we should probably hide hands/pile immediately
+            document.getElementById('central-pile').innerHTML = "";
+            document.getElementById('deck-count').innerText = "0";
+
+            toggleSettings(); // Close modal
+            showAnnouncement(lang[currentLang].reset + "!");
+
+            // Ensure turn indicator is hidden
+            updateTurnIndicator();
         }
 
         function joinSeat(index) {
