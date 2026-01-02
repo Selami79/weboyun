@@ -13,7 +13,7 @@ function render() {
 		ctx.globalAlpha = op;
 		ctx.strokeStyle = 'rgba(0,0,0,0)';
 		ctx.lineWidth = 2;
-		drawPolygon(trueCanvas.width / 2, trueCanvas.height / 2, 6, (settings.rows * settings.blockHeight) * (2 / Math.sqrt(3)) + settings.hexWidth, 30, grey, 2, 'rgba(0,0,0,0)');
+		drawPolygon(trueCanvas.width / 2, trueCanvas.height / 2, 6, (settings.rows * settings.blockHeight) * (2 / Math.sqrt(3)) + settings.hexWidth, 30, 'rgba(0,0,0,0)', 2, 'rgba(0,0,0,0)');
 
 		drawTimer();
 		ctx.globalAlpha = 1;
