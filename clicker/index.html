@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cyber Hacking Clicker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="matrix-bg" id="matrix-bg"></div>
+    <div class="scanlines"></div>
+
+    <div class="game-wrapper">
+        <header>
+            <div class="terminal-text">TARGET: <span class="blink">MAINFRAME_V4</span></div>
+            <div class="score-container">
+                <span id="score">0</span> <span class="currency">DATA BLOCKS</span>
+            </div>
+            <div class="mps-container">
+                <span id="mps">0</span> BLOCKS/SEC
+            </div>
+        </header>
+
+        <div class="main-interface">
+            <button id="hack-btn" class="cyber-button">
+                <div class="btn-content">
+                    <span class="glitch-text">INITIATE HACK</span>
+                    <span class="sub-text">CLICK TO EXTRACT</span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Upgrades Panel -->
+        <div class="upgrades-panel">
+            <div class="upgrade-item" id="upg-script">
+                <div class="info">
+                    <span class="name">SCRIPT KITTIE</span>
+                    <span class="effect">+1/s</span>
+                </div>
+                <button class="buy-btn" onclick="buy('script')">
+                    <span class="cost" id="cost-script">15</span>
+                </button>
+            </div>
+
+            <div class="upgrade-item" id="upg-bot">
+                <div class="info">
+                    <span class="name">BOTNET NODE</span>
+                    <span class="effect">+5/s</span>
+                </div>
+                <button class="buy-btn" onclick="buy('bot')">
+                    <span class="cost" id="cost-bot">100</span>
+                </button>
+            </div>
+
+            <div class="upgrade-item" id="upg-server">
+                <div class="info">
+                    <span class="name">SERVER FARM</span>
+                    <span class="effect">+25/s</span>
+                </div>
+                <button class="buy-btn" onclick="buy('server')">
+                    <span class="cost" id="cost-server">500</span>
+                </button>
+            </div>
+
+            <div class="upgrade-item" id="upg-ai">
+                <div class="info">
+                    <span class="name">QUANTUM AI</span>
+                    <span class="effect">+100/s</span>
+                </div>
+                <button class="buy-btn" onclick="buy('ai')">
+                    <span class="cost" id="cost-ai">2000</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

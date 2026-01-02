@@ -1,0 +1,232 @@
+:root {
+    --neon-green: #0f0;
+    --dark-bg: #050505;
+    --panel-bg: rgba(0, 20, 0, 0.85);
+    --border-color: #004400;
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-bg);
+    color: var(--neon-green);
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background Effects */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.game-wrapper {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.terminal-text {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.score-container {
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--neon-green);
+}
+
+.currency {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.mps-container {
+    font-size: 0.8rem;
+    color: #8f8;
+}
+
+/* Main Click Area */
+.main-interface {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cyber-button {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, #003300 0%, #000 70%);
+    border: 4px solid var(--neon-green);
+    border-radius: 50%;
+    color: var(--neon-green);
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--neon-green), inset 0 0 20px var(--neon-green);
+    transition: all 0.1s;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-button:active {
+    transform: scale(0.95);
+    background: #004400;
+    box-shadow: 0 0 40px var(--neon-green);
+}
+
+.btn-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.glitch-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.sub-text {
+    font-size: 0.7rem;
+}
+
+/* Upgrades Panel */
+.upgrades-panel {
+    border-top: 2px solid var(--border-color);
+    background: var(--panel-bg);
+    overflow-y: auto;
+    height: 40%;
+    /* Takes bottom 40% of screen */
+    padding: 5px;
+}
+
+/* Hide scrollbar */
+.upgrades-panel::-webkit-scrollbar {
+    width: 5px;
+}
+
+.upgrades-panel::-webkit-scrollbar-thumb {
+    background: var(--neon-green);
+}
+
+.upgrade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 5px;
+    background: rgba(0, 20, 0, 0.5);
+    transition: background 0.2s;
+}
+
+.upgrade-item:hover {
+    background: rgba(0, 40, 0, 0.8);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.effect {
+    font-size: 0.7rem;
+    color: #8f8;
+}
+
+.buy-btn {
+    background: transparent;
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 5px 10px;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 60px;
+}
+
+.buy-btn:hover {
+    background: var(--neon-green);
+    color: #000;
+}
+
+.buy-btn:disabled {
+    border-color: #333;
+    color: #333;
+    cursor: not-allowed;
+    background: transparent;
+}
+
+/* Floating Number Animation */
+.floater {
+    position: absolute;
+    color: #fff;
+    font-weight: bold;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px) scale(1.5);
+        opacity: 0;
+    }
+}
