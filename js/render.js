@@ -1,7 +1,7 @@
 function render() {
-	var grey = '#bdc3c7';
+	var grey = '#e6e6e6';
 	if (gameState === 0) {
-		grey = "#bdc3c7";
+		grey = "#ecf0f1";
 	}
 
 	ctx.clearRect(0, 0, trueCanvas.width, trueCanvas.height);
@@ -11,9 +11,8 @@ function render() {
 			op += 0.01;
 		}
 		ctx.globalAlpha = op;
-		ctx.strokeStyle = 'rgba(0,0,0,0)';
 		ctx.lineWidth = 2;
-		drawPolygon(trueCanvas.width / 2, trueCanvas.height / 2, 6, (settings.rows * settings.blockHeight) * (2 / Math.sqrt(3)) + settings.hexWidth, 30, 'rgba(0,0,0,0)', 2, 'rgba(0,0,0,0)');
+		drawPolygon(trueCanvas.width / 2, trueCanvas.height / 2, 6, (settings.rows * settings.blockHeight) * (2 / Math.sqrt(3)) + settings.hexWidth, 30, grey, 2, grey);
 
 		drawTimer();
 		ctx.globalAlpha = 1;
