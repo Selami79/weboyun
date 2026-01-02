@@ -222,8 +222,7 @@ button:focus {
 
 
 #highScoreInGameTextHeader {
-	color: #00f3ff;
-	text-shadow: 0 0 5px #00f3ff;
+	color: #bdc3c7;
 	width: 100%;
 }
 
@@ -237,8 +236,7 @@ button:focus {
 }
 
 #currentHighScore {
-	color: #fff;
-	text-shadow: 0 0 10px #ff00ff;
+	color: #ecf0f1;
 	width: 100%;
 	margin-top: -5px;
 	font-size: 2.5em;
