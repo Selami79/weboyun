@@ -22,10 +22,15 @@
 
 #container {
 	color: #fff;
-	text-shadow: 0 0 10px #00f3ff;
+	text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
 	position: absolute;
 	left: 50%;
 	top: calc(50%);
+	background: rgba(0, 5, 20, 0.9);
+	padding: 20px;
+	border: 2px solid #00f3ff;
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
 
 	text-align: center;
 	transform: translate(-50%, -50%);
@@ -159,8 +164,10 @@ button:focus {
 	font-size: 15px;
 	text-align: center;
 	display: none;
-	color: #232323;
-	background-color: rgba(236, 240, 241, 1);
+	color: #00f3ff;
+	background-color: rgba(5, 5, 16, 0.95);
+	text-shadow: 0 0 5px #00f3ff;
+	border: 1px solid #00f3ff;
 }
 
 #colorBlindBtn {
@@ -215,7 +222,8 @@ button:focus {
 
 
 #highScoreInGameTextHeader {
-	color: #bdc3c7;
+	color: #00f3ff;
+	text-shadow: 0 0 5px #00f3ff;
 	width: 100%;
 }
 
@@ -229,10 +237,12 @@ button:focus {
 }
 
 #currentHighScore {
-	color: #2c3e50;
+	color: #fff;
+	text-shadow: 0 0 10px #ff00ff;
 	width: 100%;
 	margin-top: -5px;
-	font-size: 2em;
+	font-size: 2.5em;
+	font-weight: bold;
 }
 
 @media only screen and (max-device-width:480px) {
@@ -307,6 +317,8 @@ button:focus {
 .centeredSubSubHeader {
 	font-size: 1.4rem;
 	text-align: center;
+	color: #ff00ff;
+	text-shadow: 0 0 5px #ff00ff;
 }
 
 #buttonCont {
@@ -386,6 +398,7 @@ body {
 	color: #00f3ff;
 	font-family: 'Exo', 'Orbitron', sans-serif;
 	background-color: #050510;
+	text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
 
 }
 
