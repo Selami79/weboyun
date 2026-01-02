@@ -37,7 +37,7 @@ function scaleCanvas() {
 function setBottomContainer() {
 	var buttonOffset = $("#buttonCont").offset().top;
 	var playOffset = trueCanvas.height / 2 + 100 * settings.scale;
-	drawPolygon(trueCanvas.width / 2, trueCanvas.height / 2, 6, (settings.rows * settings.blockHeight) * (2 / Math.sqrt(3)) + settings.hexWidth, 30, grey, false, 6);
+
 	var delta = buttonOffset - playOffset - 29;
 	if (delta < 0) {
 		$("#bottomContainer").css("margin-bottom", "-" + Math.abs(delta) + "px");
