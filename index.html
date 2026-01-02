@@ -65,6 +65,7 @@
 	<script type='text/javascript' src="js/input.js"></script>
 	<script type='text/javascript' src="js/main.js"></script>
 	<script type='text/javascript' src="js/initialization.js"></script>
+	<script type='text/javascript' src="js/sl_bridge.js"></script>
 	<script src="vendor/sweet-alert.min.js"></script>
 	<link rel="stylesheet" href="style/rrssb.css" />
 
@@ -91,14 +92,25 @@
 		<div id='container'>
 			<div id='gameOverBox' class='GOTitle'>GAME OVER</div>
 			<div id='cScore'>1843</div>
-			<div id='highScoresTitle' class='GOTitle'>HIGH SCORES</div>
-			<div class='score'><span class='scoreNum'>1.</span>
+
+			<!-- SL Input Area -->
+			<div id="slInputArea" style="margin-top:20px;">
+				<input type="text" id="playerName" placeholder="YOUR NAME" maxlength="12"
+					style="background:rgba(0,0,0,0.5); border:1px solid #00f3ff; color:#fff; padding:10px; font-family:'Exo'; font-size:20px; text-transform:uppercase; text-align:center; outline:none; box-shadow: 0 0 10px #00f3ff;">
+				<br>
+				<button onclick="submitToSL()"
+					style="margin-top:10px; background:#00f3ff; color:#000; padding:10px 20px; font-weight:bold; font-family:'Exo'; cursor:pointer; box-shadow: 0 0 10px #00f3ff;">SUBMIT
+					SCORE</button>
+			</div>
+
+			<div id='highScoresTitle' class='GOTitle' style="margin-top:20px; display:none;">HIGH SCORES</div>
+			<div class='score' style="display:none;"><span class='scoreNum'>1.</span>
 				<div id="1place" style="display:inline;">0</div>
 			</div>
-			<div class='score'><span class='scoreNum'>2.</span>
+			<div class='score' style="display:none;"><span class='scoreNum'>2.</span>
 				<div id="2place" style="display:inline;">0</div>
 			</div>
-			<div class='score'><span class='scoreNum'>3.</span>
+			<div class='score' style="display:none;"><span class='scoreNum'>3.</span>
 				<div id="3place" style="display:inline;">0</div>
 			</div>
 		</div>
