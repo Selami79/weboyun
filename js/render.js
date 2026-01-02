@@ -1,7 +1,7 @@
 function render() {
-	var grey = '#e6e6e6';
+	var grey = '#bdc3c7';
 	if (gameState === 0) {
-		grey = "#ecf0f1";
+		grey = "rgb(220, 223, 225)";
 	}
 
 	ctx.clearRect(0, 0, trueCanvas.width, trueCanvas.height);
