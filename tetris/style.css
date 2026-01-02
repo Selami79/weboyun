@@ -1,0 +1,224 @@
+:root {
+    --bg-color: #050510;
+    --grid-bg: #0a0a1a;
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff00ff;
+    --neon-green: #00ff00;
+    --neon-red: #ff0000;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(0, 243, 255, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    /* Prevent selection on clicks */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+/* HUD Styling */
+.hud {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+.hud-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+}
+
+.label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--neon-blue);
+    margin-bottom: 5px;
+}
+
+#score,
+#level,
+#lines {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+/* Canvas Area */
+.canvas-wrapper {
+    position: relative;
+    padding: 2px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    border-radius: 4px;
+}
+
+canvas {
+    display: block;
+    background-color: var(--grid-bg);
+}
+
+/* Overlays */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 16, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.neon-text {
+    font-size: 3rem;
+    text-align: center;
+    color: #fff;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--neon-blue),
+        0 0 40px var(--neon-blue),
+        0 0 80px var(--neon-blue);
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.neon-text-red {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow:
+        0 0 10px var(--neon-red),
+        0 0 20px var(--neon-red),
+        0 0 40px var(--neon-red);
+}
+
+.neon-btn {
+    background: transparent;
+    color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    padding: 15px 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.neon-btn:hover {
+    background: var(--neon-pink);
+    color: #fff;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+}
+
+.small-btn {
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+.audio-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.tiny-text {
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Controls */
+.controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 320px;
+}
+
+.control-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    color: var(--neon-blue);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+}
+
+.control-btn:active {
+    background: var(--neon-blue);
+    color: #000;
+}
+
+.action-btn {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.1);
+}
+
+.action-btn:active {
+    background: var(--neon-pink);
+    color: #fff;
+}
+
+.d-pad {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+#btn-left {
+    grid-column: 1;
+}
+
+#btn-down {
+    grid-column: 2;
+}
+
+#btn-right {
+    grid-column: 3;
+}
+
+.action-pad {
+    display: flex;
+    gap: 15px;
+}

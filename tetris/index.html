@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Tetris</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="game-container">
+
+        <!-- Score Board -->
+        <div class="hud">
+            <div class="hud-item">
+                <span class="label">SCORE</span>
+                <span id="score">0</span>
+            </div>
+            <div class="hud-item">
+                <span class="label">LEVEL</span>
+                <span id="level">1</span>
+            </div>
+            <div class="hud-item">
+                <span class="label">LINES</span>
+                <span id="lines">0</span>
+            </div>
+        </div>
+
+        <!-- Main Game Area -->
+        <div class="canvas-wrapper">
+            <canvas id="tetris" width="240" height="400"></canvas>
+
+            <!-- Start Overlay -->
+            <div id="start-overlay" class="overlay">
+                <h1 class="neon-text">NEON<br>BLOCKS</h1>
+                <button id="start-btn" class="neon-btn">START GAME</button>
+            </div>
+
+            <!-- Game Over Overlay -->
+            <div id="game-over-overlay" class="overlay hidden">
+                <h1 class="neon-text-red">GAME OVER</h1>
+                <p id="final-score">Score: 0</p>
+                <button id="restart-btn" class="neon-btn">TRY AGAIN</button>
+            </div>
+        </div>
+
+        <!-- Touch/Click Controls -->
+        <div class="controls">
+            <div class="d-pad">
+                <button id="btn-left" class="control-btn">&#9664;</button>
+                <button id="btn-down" class="control-btn">&#9660;</button>
+                <button id="btn-right" class="control-btn">&#9654;</button>
+            </div>
+            <div class="action-pad">
+                <button id="btn-rotate" class="control-btn action-btn">&#8635;</button>
+                <button id="btn-drop" class="control-btn action-btn">&#10515;</button>
+            </div>
+        </div>
+
+        <div class="audio-controls">
+            <button id="btn-sound" class="neon-btn small-btn">SOUND: ON</button>
+            <p class="tiny-text">Add 'music.mp3' to folder for BGM</p>
+        </div>
+
+    </div>
+
+    <!-- Background Music (User provided) -->
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
